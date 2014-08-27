@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 
 import android.content.Context;
@@ -71,6 +72,8 @@ public class Completed  extends Activity{
 	String description;
 	String trails;
 	String address;
+	boolean newEntry;
+	boolean completedChecked;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,22 +96,30 @@ public class Completed  extends Activity{
 	    description = intent.getStringExtra("description");
 	    trails = intent.getStringExtra("trails");
 	    address = intent.getStringExtra("address");
+  
 		
-		if (db.entryExists(id) == 0) {	
+		if (db.getProfileEntry(id)==null) {	
 			Log.d("Entry ", "doesn't exist");
+			newEntry = true;
 			final Calendar calendar = Calendar.getInstance(); 
 			year = calendar.get(Calendar.YEAR);
-			month = calendar.get(Calendar.MONTH);
+			month = calendar.get(Calendar.MONTH) + 1;
 			day = calendar.get(Calendar.DAY_OF_MONTH);
 			String todaysDate = ""+ month + "-" + day +"-" + year;
 			/*UserProfile(long id, int completed, String name, String dateCompleted, 
 					double distance, double rating, String review, String notes)*/
 			profile = new UserProfile(id, 0, name, todaysDate, distancia, 0.0, "", "");
 		} else {
+			Log.d("Entry ", "exists");
+			newEntry = false;
 			profile = db.getProfileEntry(id);
 		}
 		
-		boolean completedChecked = (profile.getCompleted() == 0) ? false : true;
+		if (profile.getCompleted() > 0) {
+			completedChecked = true;
+		} else {
+			completedChecked = false;
+		}
 		completedCheck.setChecked(completedChecked);
 		reviewText = (EditText) findViewById(R.id.editText1);
 		notesText = (EditText) findViewById(R.id.editText2);
@@ -122,8 +133,22 @@ public class Completed  extends Activity{
 		saveButton.setOnClickListener( new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //db.updateHike(selectedHike);
-	        	//Intent myIntent = new Intent(Completed.this, MainActivity.class);
+            	profile.setRating(rating.getRating());
+            	profile.setNotes(notesText.getText().toString());
+            	profile.setReview(reviewText.getText().toString());
+            	int completedChecked = (completedCheck.isChecked()) ? 1 : 0;
+                profile.setCompleted(completedChecked);
+                profile.setDistance(distance);
+            	
+                if (newEntry) {
+                	db.addProfileEntry(profile);
+                	Log.d("New entry in ", "profile db");
+                } else {
+                	db.updateUserProfile(profile);
+                	Log.d("Updated ", " profile in db");
+                }
+                
+	        	//Intent myIntent = new Intent(Completed.this, Profile.class);
 	        	//myIntent.putExtra("key", value); //Optional parameters
 	        	//Completed.this.startActivity(myIntent);
             }
@@ -135,8 +160,7 @@ public class Completed  extends Activity{
 	
 	public void initializeCompleted(UserProfile profile) {
 		completedCheck.setChecked(profile.getCompleted()==1);
-		month = Integer.parseInt(profile.getDateCompleted().substring(0,1));
-		year = 0;
+		month = Integer.parseInt(profile.getDateCompleted().substring(0,1)) - 1;
 		day = Integer.parseInt(profile.getDateCompleted().substring(2,4));
 		year = Integer.parseInt(profile.getDateCompleted().substring(5,9));
 		Log.d("Date: ",""+profile.getDateCompleted());
@@ -149,6 +173,25 @@ public class Completed  extends Activity{
 		reviewText.setText(profile.getReview());
 		notesText.setText(profile.getNotes());
 	}
+	
+	
+	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+		// when dialog box is closed, below method will be called.
+		public void onDateSet(DatePicker view, int selectedYear,
+			int selectedMonth, int selectedDay) {
+		year = selectedYear;
+		month = selectedMonth;
+		day = selectedDay;
+		
+		// set selected date into textview
+		profile.setDateCompleted("" + (month+1) + "-" + day + "-" + year);
+		Log.d("month is ", "" + month);
+		
+		// set selected date into datepicker also
+		datePicker.init(year, month, day, null);
+		
+		}
+	};
 	
 	
 	/*public class EndpointsTask extends AsyncTask<Context, Integer, Long> {

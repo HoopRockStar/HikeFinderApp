@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 	// Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     // Database Name
     private static final String DATABASE_NAME = "UserProfileDB";
     
@@ -68,18 +68,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     	// 1. get reference to writable DB
     	SQLiteDatabase db = this.getWritableDatabase();
-    	/*db.execSQL("INSERT INTO userprofile (" + KEY_COMPLETED + ", " + KEY_NAME +", " 
+    	db.execSQL("INSERT INTO userprofile (" + KEY_ID + ", " + KEY_COMPLETED + ", " + KEY_NAME +", " 
     			+ KEY_DATE_COMPLETED + ", " + KEY_DISTANCE + ", "
     			+ KEY_RATING + ", " + KEY_REVIEW + ", " + KEY_NOTES
-    			+ ") VALUES ('" + profile.getHikeName() + "', '" 
+    			+ ") VALUES ('" + (int) profile.getId() + "', '" + profile.getCompleted() + "', '" + profile.getHikeName() + "', '" 
     			+ profile.getDateCompleted() + "', '" + profile.getDistance()
     			+ "', '" + profile.getRating() + "', '" + profile.getReview()
-    			+ "', '" + profile.getNotes() + "') WHERE NOT EXISTS (SELECT "
-    			+ KEY_ID + " FROM " + " userprofile " + " WHERE " 
-    			+ KEY_ID + " = '" + profile.getId() + "')");
-*/
+    			+ "', '" + profile.getNotes() + "')");
+
 		// 2. create ContentValues to add key "column"/value
-		ContentValues values = new ContentValues();
+		/*ContentValues values = new ContentValues();
 		values.put(KEY_COMPLETED, profile.getCompleted());
 		values.put(KEY_NAME, profile.getHikeName());
 		values.put(KEY_DATE_COMPLETED, profile.getDateCompleted()); 
@@ -92,18 +90,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.insert(TABLE_PROFILE, // table
 		        null, //nullColumnHack
 		        values); // key/value -> keys = column names/ values = column values
-		
+		*/
 		
 		// 4. close
 		db.close();
     }
     
     public UserProfile getProfileEntry(long id){
-    	 
+    	id = (int) id;
         // 1. get reference to readable DB
         SQLiteDatabase db = this.getReadableDatabase();
         UserProfile profile = null;
-        id = (int) id;
        /* Cursor cursor = 
         		db.execSQL("SELECT * FROM userprofile WHERE " 
         				+ KEY_NAME + " = '" + profile.getHikeName() + "' && " 
@@ -123,7 +120,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 null); // h. limit
      
         // 3. if we got results get the first one
-        if (cursor != null) {
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
      
             // 4. build profile object
@@ -136,15 +133,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	        profile.setRating(cursor.getDouble(5));
 	        profile.setReview(cursor.getString(6));
 	        profile.setNotes(cursor.getString(7));
+        } else {
+        	Log.d("Cursor is null", " does not exists in database");
+        	return null;
         }
         
-        //log
-        if (profile != null) {
-        	Log.d("getUserProfile(" + id + ") ", profile.toString());
-        } else {
-        	Log.d("getUserProfile(" + id + ") ", "profile is null");
-        }
-     
+        
         // 5. return profile
         return profile;
     }
