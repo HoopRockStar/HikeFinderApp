@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/scaledyosemite"
+    tools:context=".MainActivity" >
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:layout_above="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorFawn"
+        android:text="CREATE A HIKE" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="28dp"
+        android:background="@color/colorFawn"
+        android:text="VIEW PROFILE" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:layout_above="@+id/button3"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorFawn"
+        android:text="FIND A HIKE" />
+
+</RelativeLayout>
