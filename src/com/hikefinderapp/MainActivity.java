@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-	        	Intent myIntent = new Intent(MainActivity.this, Display_Map.class);
+	        	Intent myIntent = new Intent(MainActivity.this, Profile.class);
 	        	MainActivity.this.startActivity(myIntent);
             }
         });

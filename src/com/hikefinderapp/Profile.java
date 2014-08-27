@@ -41,13 +41,13 @@ public class Profile extends ListActivity{
 
 		//db = new DatabaseHandler(this);
 		
-		MySQLiteHelper db = new MySQLiteHelper(this);
+		//MySQLiteHelper db = new MySQLiteHelper(this);
 		
 		profileListView = getListView();
 		
 		int id = (int) System.currentTimeMillis();
 		
-		UserProfile profile = new UserProfile();
+		//UserProfile profile = new UserProfile();
 		
 		//db.addProfileEntry(profile)
 		
@@ -55,10 +55,10 @@ public class Profile extends ListActivity{
 		mileage = (TextView) findViewById(R.id.textView3);
 		calories = (TextView) findViewById(R.id.textView4);
 		
-		numHikes.setText("Hikes completed ...................... " + hikeResults.size());
+		//numHikes.setText("Hikes completed ...................... " + hikeResults.size());
 		
 		int totalMiles = 0;
-		for(Hike hike : hikeResults)
+		/*for(Hike hike : hikeResults)
 		{
 			totalMiles += hike.getDistance();
 		}
@@ -69,7 +69,7 @@ public class Profile extends ListActivity{
 		
 	    m_adapter = new ProfileAdapter(this, R.layout.list_item, hikeResults);
         setListAdapter(m_adapter);
-		
+		*/
 		homeButton = (Button) findViewById(R.id.retrn);
 		
 		homeButton.setOnClickListener( new OnClickListener() {

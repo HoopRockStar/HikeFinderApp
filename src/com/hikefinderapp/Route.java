@@ -20,6 +20,7 @@ public class Route extends Activity
 	TextView address;
 	TextView trails;
 	TextView latlong;
+	TextView stats;
 	/// buttons
 	Button checklistButton;
 	Button mapButton;
@@ -57,15 +58,17 @@ public class Route extends Activity
 		
 		selectedHike = GlobalDataContainer.getSelectedHike();
 		
-		address = (TextView) findViewById(R.id.textView3);
 		trails = (TextView) findViewById(R.id.textView1);
-		latlong = (TextView) findViewById(R.id.textView4);
+		latlong = (TextView) findViewById(R.id.textView3);
+		stats = (TextView) findViewById(R.id.textView5);
+		
+		trail = trail.replace("\n", "\n\n");
 		trail = trail.replace(", ", "\n\n");
+		trail = trail.replace(">", "\n\n");
 		
 		trails.setText("Trails :\n" + trail);
-		address.setText("Address: \n" + addres);
-		latlong.setText("Latitude: " + latitude + "\nLongitude: " + longitude);
-		
+		latlong.setText("Address: " + addres + "\n\nLatitude: " + latitude + "\nLongitude: " + longitude +"\n\nDistance: " + distance + " ft\nElevation Gain: " + elevation + " miles\nCalories: " + ((int) (distance * 80)));
+
 
 		checklistButton = (Button) findViewById(R.id.button1);
 		completedButton = (Button) findViewById(R.id.button3);
@@ -76,6 +79,16 @@ public class Route extends Activity
             public void onClick(View v) {
             	
 		        	Intent myIntent = new Intent(Route.this, Checklist.class);
+		        	myIntent.putExtra("featureString", featureString);
+		    	    myIntent.putExtra("name", name);
+		    	    myIntent.putExtra("id", id);
+		    	    myIntent.putExtra("distance", distance);
+		    	    myIntent.putExtra("elevation", elevation);
+		    	    myIntent.putExtra("description", description);
+		    	    myIntent.putExtra("trails", trail);
+		    	    myIntent.putExtra("address", addres);
+		    	    myIntent.putExtra("latitude", latitude);
+		        	myIntent.putExtra("longitude", longitude);
 		        	Route.this.startActivity(myIntent);
             }
         });
