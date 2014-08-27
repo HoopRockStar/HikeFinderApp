@@ -5,21 +5,10 @@
     android:background="@color/colorFawn"
     tools:context=".MainActivity" >
 
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_marginLeft="48dp"
-        android:layout_toRightOf="@+id/textView2"
-        android:text="@string/yes" />
-
     <RatingBar
         android:id="@+id/ratingBar1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView9"
         android:layout_below="@+id/textView9" />
 
     <TextView
@@ -28,6 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/editText1"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/completed_completed" />
 
     <TextView
@@ -35,16 +26,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/checkBox1"
         android:layout_marginTop="19dp"
         android:text="@string/completed_rate" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/editText2"
         android:layout_alignLeft="@+id/editText2"
-        android:layout_alignParentBottom="true"
         android:background="@color/colorAsparagus"
         android:text="@string/completed_save" />
 
@@ -52,7 +43,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText1"
+        android:layout_below="@+id/datePicker1"
         android:layout_alignParentLeft="true"
         android:text="@string/completed_review"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -61,7 +52,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText2"
+        android:layout_below="@+id/editText1"
         android:layout_alignParentLeft="true"
         android:text="@string/completed_notes"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -70,7 +61,7 @@
         android:id="@+id/editText2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
+        android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
         android:ems="10"
         android:inputType="textMultiLine"
@@ -80,7 +71,7 @@
         android:id="@+id/editText1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView3"
+        android:layout_below="@+id/textView1"
         android:layout_alignParentLeft="true"
         android:ems="10"
         android:inputType="textMultiLine"
@@ -93,7 +84,7 @@
         android:id="@+id/datePicker1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView1"
+        android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="15dp" />
 
@@ -101,8 +92,15 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/datePicker1"
+        android:layout_below="@+id/ratingBar1"
         android:layout_alignParentLeft="true"
         android:text="Completed on" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

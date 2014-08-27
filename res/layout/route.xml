@@ -47,7 +47,7 @@
     <Button
         android:id="@+id/button1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginBottom="17dp"
         android:layout_marginTop="17dp"
         android:background="@color/colorAsparagus"
@@ -57,7 +57,7 @@
     <Button
         android:id="@+id/button3"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/button1"
