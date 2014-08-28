@@ -1,6 +1,7 @@
 package com.hikefinderapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +13,21 @@ import com.hikefinderapp.entity.hikeendpoint.model.CollectionResponseHike;
 import com.hikefinderapp.entity.hikeendpoint.model.Hike;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class ProfileAdapter extends ArrayAdapter<Hike> {
+public class ProfileAdapter extends ArrayAdapter<UserProfile> {
 
 	// declaring our ArrayList of items
-	private ArrayList<Hike> hikes;
+	private ArrayList<UserProfile> profiles;
 
 	/* here we must override the constructor for ArrayAdapter
 	* the only variable we care about now is ArrayList<Item> objects,
 	* because it is the list of objects we want to display.
 	*/
-	public ProfileAdapter(Context context, int textViewResourceId, ArrayList<Hike> hikes) {
-		super(context, textViewResourceId, hikes);
-		this.hikes = hikes;
+	public ProfileAdapter(Context context, int textViewResourceId, ArrayList<UserProfile> profiles) {
+		super(context, textViewResourceId, profiles);
+		this.profiles = profiles;
 	}
 
 	/*
@@ -41,7 +43,7 @@ public class ProfileAdapter extends ArrayAdapter<Hike> {
 		// to inflate it basically means to render, or show, the view.
 		if (v == null) {
 			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = inflater.inflate(R.layout.list_item, null);
+			v = inflater.inflate(R.layout.profile_item, null);
 		}
 
 		/*
@@ -51,9 +53,24 @@ public class ProfileAdapter extends ArrayAdapter<Hike> {
 		 * 
 		 * Therefore, i refers to the current Item object.
 		 */
-		Hike h = hikes.get(position);
+		UserProfile p = profiles.get(position);
 
-		if (h != null) {
+		if (p != null) {
+			
+			int month=0;
+			String day="0";
+			String year="0";
+			Log.d("p-date: ", p.getDateCompleted());
+			if(p.getDateCompleted().length()==9) {
+				month = Integer.parseInt(p.getDateCompleted().substring(0,1));
+				day = p.getDateCompleted().substring(2,4);
+				year = p.getDateCompleted().substring(5,9);
+			} else {
+				month = Integer.parseInt(p.getDateCompleted().substring(0,2)) - 1;
+				day = p.getDateCompleted().substring(3,5);
+				year = p.getDateCompleted().substring(6,10);
+			}
+			String date = "" + month +"-" + day + "-" + year;
 
 			// This is how you obtain a reference to the TextViews.
 			// These TextViews are created in the XML files we defined.
@@ -69,15 +86,18 @@ public class ProfileAdapter extends ArrayAdapter<Hike> {
 				tt.setText("Hike: ");
 			}
 			if (ttd != null){
-				ttd.setText(h.getName());
+				ttd.setText(p.getHikeName() );
 			}
 			if (mt != null){
+				
 				mt.setText("Your Rating: ");
 			}
 			
-			if (mtd != null){
-				mtd.setText(h.getRating() + " Stars");
+			if (mtd != null) {
+				mtd.setText(""+p.getRating() + " stars (" + date +")");
 			}
+			
+			
 			
 		}
 
@@ -85,5 +105,4 @@ public class ProfileAdapter extends ArrayAdapter<Hike> {
 		return v;
 
 	}
-
 }

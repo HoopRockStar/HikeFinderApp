@@ -1,5 +1,7 @@
 package com.hikefinderapp;
 
+import java.util.Comparator;
+
 public class UserProfile {
 	private long id;
 	private int completed;
@@ -92,5 +94,7 @@ public class UserProfile {
 	public String toString() {
 		return "Hike Name: " + hikeName + "Completed: " + completed + "Date Completed: " +  dateCompleted + "Distance: " + distance;
 	}
+
+	
 	
 }

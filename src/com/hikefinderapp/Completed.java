@@ -160,9 +160,15 @@ public class Completed  extends Activity{
 	
 	public void initializeCompleted(UserProfile profile) {
 		completedCheck.setChecked(profile.getCompleted()==1);
-		month = Integer.parseInt(profile.getDateCompleted().substring(0,1)) - 1;
-		day = Integer.parseInt(profile.getDateCompleted().substring(2,4));
-		year = Integer.parseInt(profile.getDateCompleted().substring(5,9));
+		if(profile.getDateCompleted().length()==9) {
+			month = Integer.parseInt(profile.getDateCompleted().substring(0,1));
+			day = Integer.parseInt(profile.getDateCompleted().substring(2,4));
+			year = Integer.parseInt(profile.getDateCompleted().substring(5,9));
+		} else {
+			month = Integer.parseInt(profile.getDateCompleted().substring(0,2)) - 1;
+			day = Integer.parseInt(profile.getDateCompleted().substring(3,5));
+			year = Integer.parseInt(profile.getDateCompleted().substring(6,10));
+		}
 		Log.d("Date: ",""+profile.getDateCompleted());
 		Log.d("month: " + month, "day: " + day + "year: " + year);
 		datePicker.init(year, month, day, null);

@@ -2,11 +2,14 @@ package com.hikefinderapp;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -28,48 +31,44 @@ public class Profile extends ListActivity{
 	private Runnable viewParts;
 	private ProfileAdapter m_adapter;
 	
-	//DatabaseHandler db;
+	MySQLiteHelper db;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
-		// when the screen is first created, show the layout
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile);
 		Intent intent = getIntent();
 		//String value = intent.getStringExtra("key"); //if it's a string you stored.
 
-		//db = new DatabaseHandler(this);
-		
-		//MySQLiteHelper db = new MySQLiteHelper(this);
-		
+		db = new MySQLiteHelper(this);
 		profileListView = getListView();
 		
-		int id = (int) System.currentTimeMillis();
+		List<UserProfile> profiles;
 		
-		//UserProfile profile = new UserProfile();
+		profiles = db.getAllProfileEntries();
 		
 		//db.addProfileEntry(profile)
-		
+		Collections.sort(profiles, new ProfileComparison());
 		numHikes = (TextView) findViewById(R.id.textView2);
 		mileage = (TextView) findViewById(R.id.textView3);
 		calories = (TextView) findViewById(R.id.textView4);
 		
-		//numHikes.setText("Hikes completed ...................... " + hikeResults.size());
+		numHikes.setText("Hikes completed ...................... " + profiles.size());
 		
 		int totalMiles = 0;
-		/*for(Hike hike : hikeResults)
+		for(UserProfile p : profiles)
 		{
-			totalMiles += hike.getDistance();
+			totalMiles += p.getDistance();
 		}
 		
-		mileage.setText("Total miles ............................. " + totalMiles);
-		calories.setText("Calories burned ......................... " + totalMiles*80);
+		mileage.setText("Total miles ................................. " + totalMiles);
+		calories.setText("Calories burned ........................ " + totalMiles*80);
 		
+		ArrayList<UserProfile> p = new ArrayList<UserProfile>(profiles);
 		
-	    m_adapter = new ProfileAdapter(this, R.layout.list_item, hikeResults);
+	    m_adapter = new ProfileAdapter(this, R.layout.list_item, p);
         setListAdapter(m_adapter);
-		*/
+		
 		homeButton = (Button) findViewById(R.id.retrn);
 		
 		homeButton.setOnClickListener( new OnClickListener() {
@@ -85,10 +84,12 @@ public class Profile extends ListActivity{
 	
 	@Override
 	  protected void onListItemClick(ListView l, View v, int position, long id) {
-	    Hike item = (Hike)getListAdapter().getItem(position);
-	   GlobalDataContainer.setSelectedHike(item);
+	   UserProfile item = (UserProfile)getListAdapter().getItem(position);
+	   
 	   Intent myIntent = new Intent(Profile.this, Completed.class);
-	    Profile.this.startActivity(myIntent);
+	   myIntent.putExtra("id", item.getId());
+	   Profile.this.startActivity(myIntent);
+	   Log.d("Name of selected hike: ", item.getHikeName());
 	    //Toast.makeText(this, item.getName() + " selected", Toast.LENGTH_LONG).show();
 	  }
 
