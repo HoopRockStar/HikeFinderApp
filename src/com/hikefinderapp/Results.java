@@ -225,9 +225,9 @@ public class Results extends ListActivity
 			featuresText += "Of Historical Interest, ";
 		}
 		
-		/*if (h.getGeological()) {
+		if (h.getGeological()) {
 			featuresText += "Of Geographical Interest, ";
-		}*/
+		}
 		
 		if (h.getTallTrees()) {
 			featuresText += "Tall Trees, ";

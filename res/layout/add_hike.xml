@@ -250,8 +250,7 @@
         android:text="Bathroom Available" />
 
     <CheckBox
-        android:id="@+id/checkBoxBathroom"
-        android:text="Yes" />
+        android:id="@+id/checkBoxBathroom"/>
 
     </TableRow>
     
@@ -266,8 +265,7 @@
         android:text="Free Parking" />
     
     <CheckBox
-            android:id="@+id/checkBoxFreeParking"
-            android:text="Yes" />
+            android:id="@+id/checkBoxFreeParking" />
   
     </TableRow>
     
@@ -281,8 +279,7 @@
         android:text="Dogs Allowed" />
 
     <CheckBox
-        android:id="@+id/checkBoxDogsAllowed"
-        android:text="Yes" />
+        android:id="@+id/checkBoxDogsAllowed"/>
 
     </TableRow>
     
@@ -351,8 +348,7 @@
         android:text="No Steep Hills" />
 
     <CheckBox
-        android:id="@+id/checkBoxSteepHills"
-        android:text="Yes" />
+        android:id="@+id/checkBoxSteepHills"/>
 
     </TableRow>
     
@@ -383,8 +379,7 @@
         android:text="Loop" />
 
     <CheckBox
-        android:id="@+id/checkBoxLoop"
-        android:text="Yes" />
+        android:id="@+id/checkBoxLoop"/>
 
     </TableRow>
     
@@ -398,8 +393,7 @@
         android:text="Ocean Views" />
 
     <CheckBox
-        android:id="@+id/checkBoxOceanView"
-        android:text="Yes" />
+        android:id="@+id/checkBoxOceanView"/>
 
     </TableRow>
     
@@ -413,8 +407,7 @@
         android:text="Waterfall" />
 
     <CheckBox
-        android:id="@+id/checkBoxWaterfall"
-        android:text="Yes" />
+        android:id="@+id/checkBoxWaterfall"/>
 
     </TableRow>
     
@@ -428,8 +421,7 @@
         android:text="Lake, River or Creek" />
 
     <CheckBox
-        android:id="@+id/checkBoxRiverorLake"
-        android:text="Yes" />
+        android:id="@+id/checkBoxRiverorLake"/>
 
     </TableRow>
     
@@ -443,8 +435,7 @@
         android:text="Interesting Historical Features" />
 
     <CheckBox
-        android:id="@+id/checkBoxHistoricalFeatures"
-        android:text="Yes" />
+        android:id="@+id/checkBoxHistoricalFeatures"/>
 
     </TableRow>
     
@@ -458,8 +449,7 @@
         android:text="Interesting Geological Features" />
 
     <CheckBox
-        android:id="@+id/checkBoxGeologicalFeatures"
-        android:text="Yes" />
+        android:id="@+id/checkBoxGeologicalFeatures"/>
 
     </TableRow>
     
@@ -473,8 +463,7 @@
         android:text="Shade and Tall Trees" />
 
     <CheckBox
-        android:id="@+id/checkBoxTallTrees"
-        android:text="Yes" />
+        android:id="@+id/checkBoxTallTrees"/>
 
     </TableRow>
     
@@ -485,11 +474,10 @@
         android:padding="10dip" >
     <TextView
         android:id="@+id/textViewOpenSpaces"
-        android:text="Wildflowers" />
+        android:text="Wildflowers (Seasonal)" />
 
     <CheckBox
-        android:id="@+id/checkBoxOpenSpaces"
-        android:text="Yes" />
+        android:id="@+id/checkBoxOpenSpaces"/>
 
     </TableRow>
 
@@ -501,7 +489,7 @@
         android:layout_span="2"
         android:gravity="center"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:background="@color/colorAsparagus"
         android:text="@string/submit" />

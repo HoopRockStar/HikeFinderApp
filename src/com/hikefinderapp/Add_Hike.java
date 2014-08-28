@@ -1064,7 +1064,7 @@ public class Add_Hike extends Activity {
           		 hike.setDogsAllowed(dogsAllowedChecked);
           		 hike.setElevation(elevationValue);
           		 hike.setFreeParking(freeParkingChecked);
-          		 hike.setGeoglogical(geologicalFeaturesChecked);
+          		 hike.setGeological(geologicalFeaturesChecked);
           		 //hike.setGeological(false);
           		 hike.setHistorical(historicalFeaturesChecked);
           		 hike.setLakeRiverCreek(riverorLakeChecked);
@@ -1090,7 +1090,7 @@ public class Add_Hike extends Activity {
 			 return response;
 		 }
 		 
-		 protected void onPostExecute(CollectionResponseHike hikes) {
+		 protected void onPostExecute(Hike hike) {
 			 pd.dismiss();
 			 // Do something with the result.
 			 Toast.makeText(getBaseContext(), "Hike Added Succesfully", Toast.LENGTH_LONG).show();

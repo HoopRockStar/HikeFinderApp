@@ -614,7 +614,7 @@ public class Edit_Hike extends Activity {
         		myHike.setWaterfall(waterfallChecked);
         		myHike.setLakeRiverCreek(riverorLakeChecked);
         		myHike.setHistorical(historicalFeaturesChecked);
-        		//geologicalFeaturesCheckBox.setChecked(hike.getGeological());
+        		myHike.setGeological(geologicalFeaturesChecked);//geologicalFeaturesCheckBox.setChecked(hike.getGeological());
         		myHike.setTallTrees(tallTreesChecked);
         		myHike.setWildflowers(openSpacesChecked);
             	
@@ -738,7 +738,7 @@ public class Edit_Hike extends Activity {
 		waterfallCheckBox.setChecked(hike.getWaterfall());
 		riverorLakeCheckBox.setChecked(hike.getLakeRiverCreek());
 		historicalFeaturesCheckBox.setChecked(hike.getHistorical());
-		//geologicalFeaturesCheckBox.setChecked(hike.getGeological());
+		geologicalFeaturesCheckBox.setChecked(hike.getGeological());
 		tallTreesCheckBox.setChecked(hike.getTallTrees());
 		openSpacesCheckBox.setChecked(hike.getWildflowers());
 	
