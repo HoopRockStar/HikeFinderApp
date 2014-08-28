@@ -46,7 +46,7 @@
 # view res/layout/abc_search_view.xml #generated:85
 -keep class android.support.v7.widget.SearchView$SearchAutoComplete { <init>(...); }
 
-# view AndroidManifest.xml #generated:51
+# view AndroidManifest.xml #generated:52
 -keep class com.google.android.gcm.GCMBroadcastReceiver { <init>(...); }
 
 # view res/layout/map_view.xml #generated:7
@@ -64,7 +64,10 @@
 # view AndroidManifest.xml #generated:40
 -keep class com.hikefinderapp.Display_Map { <init>(...); }
 
-# view AndroidManifest.xml #generated:50
+# view AndroidManifest.xml #generated:49
+-keep class com.hikefinderapp.Edit_Hike { <init>(...); }
+
+# view AndroidManifest.xml #generated:51
 -keep class com.hikefinderapp.GCMIntentService { <init>(...); }
 
 # view AndroidManifest.xml #generated:42
@@ -79,7 +82,7 @@
 # view AndroidManifest.xml #generated:47
 -keep class com.hikefinderapp.Profile { <init>(...); }
 
-# view AndroidManifest.xml #generated:49
+# view AndroidManifest.xml #generated:50
 -keep class com.hikefinderapp.RegisterActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:39
@@ -92,17 +95,21 @@
 -keep class com.hikefinderapp.Select { <init>(...); }
 
 # onClick res/layout/add_hike.xml #generated:233
+# onClick res/layout/edit_hike.xml #generated:176
 # onClick res/layout/select.xml #generated:43
 -keepclassmembers class * { *** toggle_contents(...); }
 
 # onClick res/layout/add_hike.xml #generated:43
+# onClick res/layout/edit_hike.xml #generated:43
 -keepclassmembers class * { *** toggle_contents_basic(...); }
 
 # onClick res/layout/add_hike.xml #generated:296
+# onClick res/layout/edit_hike.xml #generated:239
 # onClick res/layout/select.xml #generated:122
 -keepclassmembers class * { *** toggle_contents_difficulty(...); }
 
 # onClick res/layout/add_hike.xml #generated:366
+# onClick res/layout/edit_hike.xml #generated:309
 # onClick res/layout/select.xml #generated:202
 -keepclassmembers class * { *** toggle_contents_features(...); }
 

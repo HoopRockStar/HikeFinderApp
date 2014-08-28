@@ -192,6 +192,8 @@ public class Add_Hike extends Activity {
 	Boolean tallTreesChecked;
 	Boolean openSpacesChecked;
 	
+	Long id;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -758,6 +760,7 @@ public class Add_Hike extends Activity {
                             getApplicationContext(), name + " " + address + " " + latitude + " " + longitude, Toast.LENGTH_LONG).show();
             		new AddHikeAsyncTask(Add_Hike.this).execute();
             		Intent myIntent = new Intent(Add_Hike.this, MainActivity.class);
+            		myIntent.putExtra("id",id);
             		Add_Hike.this.startActivity(myIntent);
             	}
             }
@@ -1050,7 +1053,7 @@ public class Add_Hike extends Activity {
 			 try {
 				 Hikeendpoint.Builder builder = new Hikeendpoint.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), null);
 				 Hikeendpoint service = builder.build();
-				 Long id = (Long) System.currentTimeMillis();
+				 id = (Long) System.currentTimeMillis();
 				 Hike hike = new Hike().setDescription(description);
           		 hike.setName(name);
           		 hike.setAddress(street + ", " + city + ", " + stateValue + " " + zip);

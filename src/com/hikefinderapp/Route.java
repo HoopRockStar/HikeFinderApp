@@ -25,6 +25,7 @@ public class Route extends Activity
 	Button checklistButton;
 	Button mapButton;
 	Button completedButton;
+	Button editButton;
 	
 	Hike selectedHike;
 	
@@ -56,8 +57,6 @@ public class Route extends Activity
 	    latitude = intent.getExtras().getDouble("latitude");
 	    longitude = intent.getExtras().getDouble("longitude");
 		
-		selectedHike = GlobalDataContainer.getSelectedHike();
-		
 		trails = (TextView) findViewById(R.id.textView1);
 		latlong = (TextView) findViewById(R.id.textView3);
 		stats = (TextView) findViewById(R.id.textView5);
@@ -71,6 +70,7 @@ public class Route extends Activity
 
 
 		checklistButton = (Button) findViewById(R.id.button1);
+		editButton = (Button) findViewById(R.id.button2);
 		completedButton = (Button) findViewById(R.id.button3);
 		
 		
@@ -107,6 +107,16 @@ public class Route extends Activity
 		    	    myIntent.putExtra("description", description);
 		    	    myIntent.putExtra("trails", trail);
 		    	    myIntent.putExtra("address", addres);
+		        	Route.this.startActivity(myIntent);
+            }
+        });
+		
+		editButton.setOnClickListener( new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            	
+		        	Intent myIntent = new Intent(Route.this, Edit_Hike.class);
+		    	    myIntent.putExtra("id", id);
 		        	Route.this.startActivity(myIntent);
             }
         });

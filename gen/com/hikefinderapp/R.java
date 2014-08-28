@@ -1724,20 +1724,21 @@ containing a value of this type.
         public static final int add_hike=0x7f03001a;
         public static final int checklist=0x7f03001b;
         public static final int completed=0x7f03001c;
-        public static final int features=0x7f03001d;
-        public static final int hike_description=0x7f03001e;
-        public static final int list_element=0x7f03001f;
-        public static final int list_group=0x7f030020;
-        public static final int list_item=0x7f030021;
-        public static final int map=0x7f030022;
-        public static final int map_view=0x7f030023;
-        public static final int options=0x7f030024;
-        public static final int profile=0x7f030025;
-        public static final int profile_item=0x7f030026;
-        public static final int results=0x7f030027;
-        public static final int route=0x7f030028;
-        public static final int select=0x7f030029;
-        public static final int support_simple_spinner_dropdown_item=0x7f03002a;
+        public static final int edit_hike=0x7f03001d;
+        public static final int features=0x7f03001e;
+        public static final int hike_description=0x7f03001f;
+        public static final int list_element=0x7f030020;
+        public static final int list_group=0x7f030021;
+        public static final int list_item=0x7f030022;
+        public static final int map=0x7f030023;
+        public static final int map_view=0x7f030024;
+        public static final int options=0x7f030025;
+        public static final int profile=0x7f030026;
+        public static final int profile_item=0x7f030027;
+        public static final int results=0x7f030028;
+        public static final int route=0x7f030029;
+        public static final int select=0x7f03002a;
+        public static final int support_simple_spinner_dropdown_item=0x7f03002b;
     }
     public static final class string {
         public static final int LOMB=0x7f0a0040;

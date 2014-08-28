@@ -63,7 +63,16 @@
         android:layout_below="@+id/button1"
         android:background="@color/colorAsparagus"
         android:text="@string/completed" />
-    
+
+    <Button
+        android:id="@+id/button2"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorAsparagus"
+        android:text="Edit" />
 
 </RelativeLayout>
 

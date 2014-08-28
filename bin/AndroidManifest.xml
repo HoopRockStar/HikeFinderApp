@@ -46,6 +46,7 @@
         <activity android:label="@string/app_name" android:name="com.hikefinderapp.Map"/>
         <activity android:label="@string/app_name" android:name="com.hikefinderapp.Profile"/>
         <activity android:label="@string/app_name" android:name="com.hikefinderapp.Add_Hike"/>
+        <activity android:label="@string/app_name" android:name="com.hikefinderapp.Edit_Hike"/>
         <activity android:launchMode="singleTop" android:name=".RegisterActivity"/>
         <service android:name=".GCMIntentService"/>
         <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
