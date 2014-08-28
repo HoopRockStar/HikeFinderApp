@@ -9,6 +9,7 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 
 import android.content.Context;
@@ -21,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -37,6 +39,8 @@ import com.hikefinderapp.entity.hikeendpoint.model.Hike;
 
 public class Completed  extends Activity{
 	
+	static final int DATE_PICKER_ID = 1111; 
+
 	CheckBox completedCheck;
 	
 	RatingBar rating;
@@ -75,15 +79,17 @@ public class Completed  extends Activity{
 	boolean newEntry;
 	boolean completedChecked;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-	
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.completed);
 		Intent intent = getIntent();
 		//String value = intent.getStringExtra("key"); //if it's a string you stored.
 
 		db = new MySQLiteHelper(this);
+		//Toast.makeText(getApplicationContext(), "completed distance " + distancia, Toast.LENGTH_LONG).show();
 		
 		datePicker = (DatePicker) findViewById(R.id.datePicker1);
 		completedCheck = (CheckBox) findViewById(R.id.checkBox1);
@@ -103,12 +109,10 @@ public class Completed  extends Activity{
 			newEntry = true;
 			final Calendar calendar = Calendar.getInstance(); 
 			year = calendar.get(Calendar.YEAR);
-			month = calendar.get(Calendar.MONTH) + 1;
+			month = calendar.get(Calendar.MONTH);
 			day = calendar.get(Calendar.DAY_OF_MONTH);
 			String todaysDate = ""+ month + "-" + day +"-" + year;
-			/*UserProfile(long id, int completed, String name, String dateCompleted, 
-					double distance, double rating, String review, String notes)*/
-			profile = new UserProfile(id, 0, name, todaysDate, distancia, 0.0, "", "");
+			profile = new UserProfile(id, 0, name, todaysDate, distance, 0.0, "", "");
 		} else {
 			Log.d("Entry ", "exists");
 			newEntry = false;
@@ -124,11 +128,32 @@ public class Completed  extends Activity{
 		reviewText = (EditText) findViewById(R.id.editText1);
 		notesText = (EditText) findViewById(R.id.editText2);
 		
-		initializeCompleted(profile);
+		rating = (RatingBar) findViewById(R.id.ratingBar1);
+		userRating = (float) profile.getRating();
+		rating.setRating(userRating);
+		reviewText.setText(profile.getReview());
+		notesText.setText(profile.getNotes());
+		
+		parseDate(profile.getDateCompleted());
+		
+        datePicker.init(year, month, day, new OnDateChangedListener(){
 
-		///profile = new UserProfile(selectedHike.getId(), 0, selectedHike.getName(), "", selectedHike.getDistance(), 0.0, "", "");
-
-		saveButton = (Button) findViewById(R.id.button1);
+           @Override
+           public void onDateChanged(DatePicker view, 
+             int yearOf, int monthOf,int dayOf) {
+            month = monthOf;
+            day = dayOf;
+            year = yearOf;
+            
+            Toast.makeText(getApplicationContext(),
+              "Year: " + year + "\n" +
+              "Month of Year: " + month + "\n" +
+              "Day of Month: " + day, Toast.LENGTH_LONG).show();
+            
+            
+           }});
+        
+        saveButton = (Button) findViewById(R.id.button1);
 		
 		saveButton.setOnClickListener( new OnClickListener() {
             @Override
@@ -138,29 +163,28 @@ public class Completed  extends Activity{
             	profile.setReview(reviewText.getText().toString());
             	int completedChecked = (completedCheck.isChecked()) ? 1 : 0;
                 profile.setCompleted(completedChecked);
-                profile.setDistance(distance);
-            	
+                profile.setDateCompleted("" + month + "-" + day + "-" + year);
+                //profile.setDistance(distance);
+                System.out.println("Date entered: " + profile.getDateCompleted());
                 if (newEntry) {
                 	db.addProfileEntry(profile);
                 	Log.d("New entry in ", "profile db");
                 } else {
                 	db.updateUserProfile(profile);
-                	Log.d("Updated ", " profile in db");
+                	Log.d("Updated ", " profile in db" + profile.toString());
                 }
                 
-	        	//Intent myIntent = new Intent(Completed.this, Profile.class);
-	        	//myIntent.putExtra("key", value); //Optional parameters
-	        	//Completed.this.startActivity(myIntent);
+	        	Intent myIntent = new Intent(Completed.this, Profile.class);
+	        	//Toast.makeText(getApplicationContext(), 
+	            //        "The Information Has Been Saved" + profile.toString(), Toast.LENGTH_LONG).show();//Optional parameters
+	        	Completed.this.startActivity(myIntent);
             }
         });
 		
 	}
-	
-	 
-	
-	public void initializeCompleted(UserProfile profile) {
-		completedCheck.setChecked(profile.getCompleted()==1);
-		if(profile.getDateCompleted().length()==9) {
+        
+	public void parseDate(String profileDate) {
+		if(profileDate.length()==9) {
 			month = Integer.parseInt(profile.getDateCompleted().substring(0,1));
 			day = Integer.parseInt(profile.getDateCompleted().substring(2,4));
 			year = Integer.parseInt(profile.getDateCompleted().substring(5,9));
@@ -169,71 +193,7 @@ public class Completed  extends Activity{
 			day = Integer.parseInt(profile.getDateCompleted().substring(3,5));
 			year = Integer.parseInt(profile.getDateCompleted().substring(6,10));
 		}
-		Log.d("Date: ",""+profile.getDateCompleted());
-		Log.d("month: " + month, "day: " + day + "year: " + year);
-		datePicker.init(year, month, day, null);
-		Log.d("Rating", ""+profile.getRating());
-		rating = (RatingBar) findViewById(R.id.ratingBar1);
-		userRating = (float) profile.getRating();
-		rating.setRating(userRating);
-		reviewText.setText(profile.getReview());
-		notesText.setText(profile.getNotes());
+		Log.d("PArsing date: ", "month: " + month + "day: " + day + "year: " + year);
+		
 	}
-	
-	
-	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-		// when dialog box is closed, below method will be called.
-		public void onDateSet(DatePicker view, int selectedYear,
-			int selectedMonth, int selectedDay) {
-		year = selectedYear;
-		month = selectedMonth;
-		day = selectedDay;
-		
-		// set selected date into textview
-		profile.setDateCompleted("" + (month+1) + "-" + day + "-" + year);
-		Log.d("month is ", "" + month);
-		
-		// set selected date into datepicker also
-		datePicker.init(year, month, day, null);
-		
-		}
-	};
-	
-	
-	/*public class EndpointsTask extends AsyncTask<Context, Integer, Long> {
-        protected Long doInBackground(Context... contexts) {
-        	
-        	
-
-          Hikeendpoint.Builder endpointBuilder = new Hikeendpoint.Builder(
-              AndroidHttp.newCompatibleTransport(),
-              new JacksonFactory(),
-              new HttpRequestInitializer() {
-              public void initialize(HttpRequest httpRequest) { }
-              });
-      Hikeendpoint endpoint = CloudEndpointUtils.updateBuilder(
-      endpointBuilder).build();
-      try {
-    	  selectedHike = GlobalDataContainer.getSelectedHike();
-          
-          Boolean completedChecked = (completedCheck.isChecked()) ? true : false;
-          selectedHike.setCompleted(completedChecked);
-          
-          selectedHike.setRating((double)rating.getRating());
-          
-          //selectedHike.setReview((String)reviewText.getText().toString());
-          //selectedHike.setNotes((String)notesText.getText().toString());
-    	  
-          Hike result = endpoint.updateHike(selectedHike).execute();
-          Toast.makeText(
-                  getApplicationContext(),"Thank you! The Hike Information Has Been Saved.", Toast.LENGTH_LONG).show();
-    	  
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-          return (long) 0;
-        }
-    }*/
-	
-	
 }

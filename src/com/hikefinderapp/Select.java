@@ -510,9 +510,7 @@ public class Select extends Activity {
                 	elevationQueryString = "(elevation >= 4000 && elevation <= 5000)";
                 else if (position == 7)
                 	elevationQueryString = "(elevation >= 5000)";
-                 
-                Toast.makeText(
-                        getApplicationContext(), elevationQueryString, Toast.LENGTH_LONG).show();
+                
             }
 		
             @Override
@@ -542,8 +540,6 @@ public class Select extends Activity {
                 else if (position == 7)
                 	caloriesQueryString = "(calories >= 5000)";
                  
-                Toast.makeText(
-                        getApplicationContext(), caloriesQueryString, Toast.LENGTH_LONG).show();
             }
 		
             @Override

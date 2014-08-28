@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hikefinderapp.entity.hikeendpoint.Hikeendpoint;
 import com.hikefinderapp.entity.hikeendpoint.model.CollectionResponseHike;
@@ -56,6 +57,8 @@ public class Route extends Activity
 	    addres = intent.getStringExtra("address");
 	    latitude = intent.getExtras().getDouble("latitude");
 	    longitude = intent.getExtras().getDouble("longitude");
+	    
+	    Toast.makeText(getApplicationContext(), "route distance " + distance, Toast.LENGTH_LONG).show();
 		
 		trails = (TextView) findViewById(R.id.textView1);
 		latlong = (TextView) findViewById(R.id.textView3);

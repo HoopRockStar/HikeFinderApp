@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hikefinderapp.entity.hikeendpoint.Hikeendpoint;
 import com.hikefinderapp.entity.hikeendpoint.model.CollectionResponseHike;
@@ -54,6 +55,7 @@ public class ProfileAdapter extends ArrayAdapter<UserProfile> {
 		 * Therefore, i refers to the current Item object.
 		 */
 		UserProfile p = profiles.get(position);
+		//Toast.makeText(getContext(), "Retrieving profile: " + p.toString(), Toast.LENGTH_LONG).show();
 
 		if (p != null) {
 			
@@ -66,11 +68,12 @@ public class ProfileAdapter extends ArrayAdapter<UserProfile> {
 				day = p.getDateCompleted().substring(2,4);
 				year = p.getDateCompleted().substring(5,9);
 			} else {
-				month = Integer.parseInt(p.getDateCompleted().substring(0,2)) - 1;
+				month = Integer.parseInt(p.getDateCompleted().substring(0,2));
 				day = p.getDateCompleted().substring(3,5);
 				year = p.getDateCompleted().substring(6,10);
 			}
-			String date = "" + month +"-" + day + "-" + year;
+			
+			String date = "" + (month +1) +"-" + day + "-" + year;
 
 			// This is how you obtain a reference to the TextViews.
 			// These TextViews are created in the XML files we defined.
