@@ -208,8 +208,12 @@ public class Results extends ListActivity
 			//ArrayList<Hike> _list = (ArrayList<Hike>) hikes.getItems();
 			 //ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>();
 			 
-			 
+			
 			 finalHikes = new ArrayList<Hike>(hikesResult);
+			 
+			 if (finalHikes.size() == 0) {
+				 Toast.makeText(getApplicationContext(), "No results match your criteria. Please go back and try a new search!", Toast.LENGTH_LONG).show();
+			 }
 			 
 			 for (Hike hike : finalHikes) {
 				 hike.setScore(rateHike(hike, queryHike));
