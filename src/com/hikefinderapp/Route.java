@@ -58,18 +58,19 @@ public class Route extends Activity
 	    latitude = intent.getExtras().getDouble("latitude");
 	    longitude = intent.getExtras().getDouble("longitude");
 	    
-	    Toast.makeText(getApplicationContext(), "route distance " + distance, Toast.LENGTH_LONG).show();
+	    //Toast.makeText(getApplicationContext(), "route distance " + distance, Toast.LENGTH_LONG).show();
 		
 		trails = (TextView) findViewById(R.id.textView1);
 		latlong = (TextView) findViewById(R.id.textView3);
 		stats = (TextView) findViewById(R.id.textView5);
 		
-		trail = trail.replace("\n", "\n\n");
-		trail = trail.replace(", ", "\n\n");
-		trail = trail.replace(">", "\n\n");
+		String newTrail;
+		newTrail = trail.replace("\n", "\n\n");
+		newTrail = trail.replace(", ", "\n\n");
+		newTrail = trail.replace(">", "\n\n");
 		
-		trails.setText("Trails :\n" + trail);
-		latlong.setText("Address: " + addres + "\n\nLatitude: " + latitude + "\nLongitude: " + longitude +"\n\nDistance: " + distance + " ft\nElevation Gain: " + elevation + " miles\nCalories: " + ((int) (distance * 80)));
+		trails.setText("Trails :\n" + newTrail);
+		latlong.setText("Address: " + addres + "\n\nLatitude: " + latitude + "\nLongitude: " + longitude +"\n\nDistance: " + distance + " miles\nElevation Gain: " + elevation + " feet\nCalories: " + ((int) (distance * 80)));
 
 
 		checklistButton = (Button) findViewById(R.id.button1);

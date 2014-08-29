@@ -189,7 +189,7 @@ public class Completed  extends Activity{
 			day = Integer.parseInt(profile.getDateCompleted().substring(2,4));
 			year = Integer.parseInt(profile.getDateCompleted().substring(5,9));
 		} else {
-			month = Integer.parseInt(profile.getDateCompleted().substring(0,2)) - 1;
+			month = Integer.parseInt(profile.getDateCompleted().substring(0,2));
 			day = Integer.parseInt(profile.getDateCompleted().substring(3,5));
 			year = Integer.parseInt(profile.getDateCompleted().substring(6,10));
 		}

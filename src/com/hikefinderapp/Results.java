@@ -93,7 +93,7 @@ public class Results extends ListActivity
 		if (distanceString != null && queryString != null) {
 			for (int i =0; i < queryString.size(); i++ ) {
 				query = queryString.get(i);
-				queryString.set(i, query += " || " + distanceString);
+				queryString.set(i, query += " && " + distanceString);
 				Log.d("The combined query", queryString.get(i));
 			}
 		}

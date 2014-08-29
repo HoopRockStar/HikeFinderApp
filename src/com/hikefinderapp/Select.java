@@ -201,7 +201,6 @@ public class Select extends Activity  implements LocationListener {
 	    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 	    // Define the criteria for selecting a location provider
 	    Criteria criteria = new Criteria();
-	    zipQuery =  null;
 	    provider = locationManager.getBestProvider(criteria, false);
 	    Location location = locationManager.getLastKnownLocation(provider);
 
