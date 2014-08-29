@@ -370,7 +370,17 @@ public class Select extends Activity  implements LocationListener {
             	 */
             	
             	//textboxes
-            	/*EditText locationText;*/
+            	if (latitudeText.getText().toString().length() < 2) {
+            		//leave lat as it is
+            	} else {
+            		lat = Double.parseDouble(latitudeText.getText().toString());
+            	}
+            	
+            	if (longitudeText.getText().toString().length() < 2) {
+            		//leave lng as it is
+            	} else {
+            		lng = Double.parseDouble(longitudeText.getText().toString());
+            	}
             	
             	//check boxes
             	Boolean freeParkingChecked = (freeParkingCheckBox.isChecked()) ? true : false;
