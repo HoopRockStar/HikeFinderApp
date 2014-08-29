@@ -284,7 +284,7 @@ public class Add_Hike extends Activity {
 		dogsAllowedTextView = (TextView) findViewById(R.id.textViewDogsAllowed);
 		
 		//textbox
-		locationText = (EditText) findViewById(R.id.editTextLocation);
+		//locationText = (EditText) findViewById(R.id.editTextLocation);
 		
 		// checkboxes
 		freeParkingCheckBox = (CheckBox) findViewById(R.id.checkBoxFreeParking);

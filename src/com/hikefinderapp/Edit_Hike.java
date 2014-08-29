@@ -273,7 +273,7 @@ public class Edit_Hike extends Activity {
 		dogsAllowedTextView = (TextView) findViewById(R.id.textViewDogsAllowed);
 		
 		//textbox
-		locationText = (EditText) findViewById(R.id.editTextLocation);
+		//locationText = (EditText) findViewById(R.id.editTextLocation);
 		
 		// checkboxes
 		freeParkingCheckBox = (CheckBox) findViewById(R.id.checkBoxFreeParking);
@@ -738,7 +738,8 @@ public class Edit_Hike extends Activity {
 		waterfallCheckBox.setChecked(hike.getWaterfall());
 		riverorLakeCheckBox.setChecked(hike.getLakeRiverCreek());
 		historicalFeaturesCheckBox.setChecked(hike.getHistorical());
-		geologicalFeaturesCheckBox.setChecked(hike.getGeological());
+		//geologicalFeaturesCheckBox.setChecked(hike.getGeological());
+		geologicalFeaturesCheckBox.setChecked(false);
 		tallTreesCheckBox.setChecked(hike.getTallTrees());
 		openSpacesCheckBox.setChecked(hike.getWildflowers());
 	

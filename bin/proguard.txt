@@ -103,13 +103,13 @@
 # onClick res/layout/edit_hike.xml #generated:43
 -keepclassmembers class * { *** toggle_contents_basic(...); }
 
-# onClick res/layout/add_hike.xml #generated:296
-# onClick res/layout/edit_hike.xml #generated:239
-# onClick res/layout/select.xml #generated:122
+# onClick res/layout/add_hike.xml #generated:293
+# onClick res/layout/edit_hike.xml #generated:236
+# onClick res/layout/select.xml #generated:141
 -keepclassmembers class * { *** toggle_contents_difficulty(...); }
 
-# onClick res/layout/add_hike.xml #generated:366
-# onClick res/layout/edit_hike.xml #generated:309
-# onClick res/layout/select.xml #generated:202
+# onClick res/layout/add_hike.xml #generated:362
+# onClick res/layout/edit_hike.xml #generated:305
+# onClick res/layout/select.xml #generated:220
 -keepclassmembers class * { *** toggle_contents_features(...); }
 

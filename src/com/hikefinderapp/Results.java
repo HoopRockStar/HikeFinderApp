@@ -68,6 +68,8 @@ public class Results extends ListActivity
 	String elevationString;
 	public QueryHike queryHike;
 	ItemAdapter m_adapter;
+	Double latitude;
+	Double longitude;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,13 +93,14 @@ public class Results extends ListActivity
 		if (distanceString != null && queryString != null) {
 			for (int i =0; i < queryString.size(); i++ ) {
 				query = queryString.get(i);
-				queryString.set(i, query += " && " + distanceString);
+				queryString.set(i, query += " || " + distanceString);
 				Log.d("The combined query", queryString.get(i));
 			}
 		}
 		
 		if (queryString.size() == 0 && distanceString != null && elevationString != null) {
 			queryString.add(distanceString);
+			queryString.add(elevationString);
 			Log.d("Query is now ", queryString.get(0));
 		} else if (queryString.size() ==0 && distanceString !=null) {
 			queryString.add(distanceString);
@@ -107,7 +110,15 @@ public class Results extends ListActivity
 			Log.d("Query is now ", queryString.get(0));
 		}
 		
+		latitude = longitude = null;
 		
+		if (intent.hasExtra("latitude")) {
+			latitude = intent.getExtras().getDouble("latitude");
+		}
+		
+		if (intent.hasExtra("longitude")) {
+			longitude = intent.getExtras().getDouble("longitude");
+		}
 		
 		Boolean freeParkingChecked = intent.getExtras().getBoolean("freeParking");
         Boolean bathroomChecked = intent.getExtras().getBoolean("bathroom");
@@ -205,9 +216,16 @@ public class Results extends ListActivity
 			 }
 			 
 			 Collections.sort(finalHikes, new HikeComparison());
-			 for (Hike hike : finalHikes) {
-				 System.out.println("The hike is " + hike.getName() + " score: " + hike.getScore() + " distance: " + hike.getDistance());
-			 }
+			if (latitude != null && longitude != null) {
+				 for (int i = 0; i < finalHikes.size();i++) {
+					 Hike hike = finalHikes.get(i);
+					 if (withinRange(hike, latitude, longitude) == false) {
+						 Log.d("removing hike ", hike.getName());
+						 Log.d("Hike: " + hike.getName(), " Hike Latitude: " + hike.getLatitude() + " Latitude: " + latitude + " Hike Longitude: " + hike.getLongitude() + " Longitude: " + longitude);
+						 finalHikes.remove(i);
+					 }
+				 }
+			}
 			 
 			m_adapter = new ItemAdapter(Results.this, R.layout.list_item, finalHikes);
 		    setListAdapter(m_adapter);
@@ -320,5 +338,20 @@ public class Results extends ListActivity
 		
 		return rating;
 	}
+	
+	//workaround because of jdo stupidity where can't have ands on multiple columns
+	
+	public boolean withinRange(Hike hike, double latitude, double longitude) {
+		double latitudeDifference = Math.abs(hike.getLatitude()) - Math.abs(latitude);
+		double longitudeDifference = Math.abs(hike.getLongitude()) - Math.abs(longitude);
+		
+		if ((Math.abs(latitudeDifference) <= .5) && (Math.abs(longitudeDifference) <= .5)) {
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
 	
 }

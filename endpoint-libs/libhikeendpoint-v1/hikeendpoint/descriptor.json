@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/hikeendpoint/v1/20140828230159/java/1.18.0-rc/hikefinderapp.com-hikeendpoint-v1-20140828230159-java-1.18.0-rc-sources.jar", 
-      "path": "hikefinderapp.com-hikeendpoint-v1-20140828230159-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/hikeendpoint/v1/20140829020819/java/1.18.0-rc/hikefinderapp.com-hikeendpoint-v1-20140829020819-java-1.18.0-rc-sources.jar", 
+      "path": "hikefinderapp.com-hikeendpoint-v1-20140829020819-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-08-28 23:01"
+      "timestamp": "2014-08-29 02:08"
     }, 
     {
-      "path": "hikefinderapp.com-hikeendpoint-v1-20140828230159-java-1.18.0-rc.jar.properties", 
+      "path": "hikefinderapp.com-hikeendpoint-v1-20140829020819-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "entity", 
   "language_version": "1.18.0-rc", 
   "id": "hikeendpoint:v1", 
-  "revision": 20140828230159
+  "revision": 20140829020819
 }

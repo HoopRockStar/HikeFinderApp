@@ -1518,7 +1518,6 @@ containing a value of this type.
         public static final int editTextDistance=0x7f050082;
         public static final int editTextElevation=0x7f050085;
         public static final int editTextLatitude=0x7f050069;
-        public static final int editTextLocation=0x7f0500c3;
         public static final int editTextLongitude=0x7f05006c;
         public static final int editTextName=0x7f05005a;
         public static final int editTextStreet=0x7f05005d;
@@ -1578,9 +1577,9 @@ containing a value of this type.
         public static final int showHome=0x7f050004;
         public static final int showTitle=0x7f050006;
         public static final int spinner1=0x7f0500be;
-        public static final int spinnerCalories=0x7f0500c8;
-        public static final int spinnerDistance=0x7f0500c4;
-        public static final int spinnerElevation=0x7f0500c5;
+        public static final int spinnerCalories=0x7f0500c5;
+        public static final int spinnerDistance=0x7f0500c1;
+        public static final int spinnerElevation=0x7f0500c2;
         public static final int spinnerState=0x7f050063;
         public static final int split_action_bar=0x7f050030;
         public static final int strict_sandbox=0x7f050021;
@@ -1589,7 +1588,7 @@ containing a value of this type.
         public static final int tabMode=0x7f050002;
         public static final int tableLayout1=0x7f050053;
         public static final int tableRow1=0x7f050054;
-        public static final int tableRow11=0x7f0500c9;
+        public static final int tableRow11=0x7f0500c6;
         public static final int tableRow12=0x7f050089;
         public static final int tableRow2=0x7f050056;
         public static final int tableRow20=0x7f0500a0;
@@ -1597,7 +1596,7 @@ containing a value of this type.
         public static final int tableRow6=0x7f05007b;
         public static final int tableRow7=0x7f05007e;
         public static final int tableRowBathroom=0x7f050075;
-        public static final int tableRowCalories=0x7f0500c6;
+        public static final int tableRowCalories=0x7f0500c3;
         public static final int tableRowCity=0x7f05005e;
         public static final int tableRowDescription=0x7f050070;
         public static final int tableRowDistance=0x7f050080;
@@ -1605,7 +1604,6 @@ containing a value of this type.
         public static final int tableRowGeologicalFeatures=0x7f05009a;
         public static final int tableRowHistoricalFeatures=0x7f050097;
         public static final int tableRowLatitude=0x7f050067;
-        public static final int tableRowLocation=0x7f0500c1;
         public static final int tableRowLongitude=0x7f05006a;
         public static final int tableRowLoop=0x7f05008b;
         public static final int tableRowName=0x7f050058;
@@ -1631,7 +1629,7 @@ containing a value of this type.
         public static final int textView8=0x7f0500ad;
         public static final int textView9=0x7f0500af;
         public static final int textViewBathroom=0x7f050076;
-        public static final int textViewCalories=0x7f0500c7;
+        public static final int textViewCalories=0x7f0500c4;
         public static final int textViewCity=0x7f05005f;
         public static final int textViewDescription=0x7f050071;
         public static final int textViewDistance=0x7f050081;
@@ -1644,7 +1642,6 @@ containing a value of this type.
         public static final int textViewHikeBasics=0x7f050057;
         public static final int textViewHistoricalFeatures=0x7f050098;
         public static final int textViewLatitude=0x7f050068;
-        public static final int textViewLocation=0x7f0500c2;
         public static final int textViewLocationAccessibility=0x7f050074;
         public static final int textViewLongitude=0x7f05006b;
         public static final int textViewLoop=0x7f05008c;

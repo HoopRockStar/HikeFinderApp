@@ -68,13 +68,15 @@ public class Select extends Activity  implements LocationListener {
 	 */
 	
 	//textfields
-	TextView locationTextView;
+	TextView latitudeTextView;
+	TextView longitudeTextView;
 	TextView freeParkingTextView;
 	TextView bathroomTextView;
 	TextView dogsAllowedTextView;
 	
 	//textboxes
-	EditText locationText;
+	EditText latitudeText;
+	EditText longitudeText;
 	String provider;
 	Location location;
 	Context context;
@@ -87,7 +89,8 @@ public class Select extends Activity  implements LocationListener {
 	CheckBox dogsAllowedCheckBox;
 	
 	//tablerows
-	TableRow locationRow;
+	TableRow latitudeRow;
+	TableRow longitudeRow;
 	TableRow freeParkingRow;
 	TableRow bathroomRow;
 	
@@ -181,14 +184,17 @@ public class Select extends Activity  implements LocationListener {
 		 */
 		
 		//textviews
-		locationTextView = (TextView) findViewById(R.id.textViewLocation);
+		latitudeTextView = (TextView) findViewById(R.id.textViewLatitude);
+		longitudeTextView = (TextView) findViewById(R.id.textViewLongitude);
 		freeParkingTextView = (TextView) findViewById(R.id.textViewFreeParking);
 		bathroomTextView = (TextView) findViewById(R.id.textViewBathroom);
 		dogsAllowedTextView = (TextView) findViewById(R.id.textViewDogsAllowed);
 		
 		///textbox
-		locationText = (EditText) findViewById(R.id.editTextLocation);
+		latitudeText = (EditText) findViewById(R.id.editTextLatitude);
+		longitudeText = (EditText) findViewById(R.id.editTextLongitude);
 		
+		//button
 		submitButton = (Button) findViewById(R.id.button1);
 		
 		// Get the location manager
@@ -204,7 +210,8 @@ public class Select extends Activity  implements LocationListener {
 	      System.out.println("Provider " + provider + " has been selected.");
 	      onLocationChanged(location);
 	    } else {
-	      locationText.setText("Location not available");
+	      latitudeText.setText("Latitude information not available");
+	      longitudeText.setText("Longitude information not available");
 	    }
 	  
 
@@ -216,23 +223,27 @@ public class Select extends Activity  implements LocationListener {
 		dogsAllowedCheckBox = (CheckBox) findViewById(R.id.checkBoxDogsAllowed);
 		
 		// access three out of four tablerows
-		locationRow = (TableRow) findViewById(R.id.tableRowLocation);
+		latitudeRow = (TableRow) findViewById(R.id.tableRowLatitude);
+		longitudeRow = (TableRow) findViewById(R.id.tableRowLongitude);
 		freeParkingRow = (TableRow) findViewById(R.id.tableRowfreeParking);
 		bathroomRow = (TableRow) findViewById(R.id.tableRowBathroom);
 		
 		//make invisible to start
-		locationTextView.setVisibility(View.GONE);
+		latitudeTextView.setVisibility(View.GONE);
+		longitudeTextView.setVisibility(View.GONE);
 		freeParkingTextView.setVisibility(View.GONE);
 		bathroomTextView.setVisibility(View.GONE);
 		dogsAllowedTextView.setVisibility(View.GONE);
 		
-		locationText.setVisibility(View.GONE);
+		latitudeText.setVisibility(View.GONE);
+		longitudeText.setVisibility(View.GONE);
 		
 		freeParkingCheckBox.setVisibility(View.GONE);
 		bathroomCheckBox.setVisibility(View.GONE);
 		dogsAllowedCheckBox.setVisibility(View.GONE);
 		
-		locationRow.setVisibility(View.GONE);
+		latitudeRow.setVisibility(View.GONE);
+		longitudeRow.setVisibility(View.GONE);
 		freeParkingRow.setVisibility(View.GONE);
 		bathroomRow.setVisibility(View.GONE);
 		
@@ -456,6 +467,8 @@ public class Select extends Activity  implements LocationListener {
 		        myIntent.putExtra("distance", distanceQueryString);
 		        myIntent.putExtra("elevation", elevationQueryString);
 		        String nullQuery = "" + (queryString==null);
+		        myIntent.putExtra("latitude", lat);
+		        myIntent.putExtra("longitude",  lng);
 		        
 		        //Toast.makeText(getApplicationContext(), nullQuery, Toast.LENGTH_LONG).show();
 		        
@@ -571,10 +584,17 @@ public class Select extends Activity  implements LocationListener {
 	* onClick handler for first grouping
 	*/
 	public void toggle_contents(View v){
-	      locationText.setVisibility( locationText.isShown()
+	      latitudeText.setVisibility( latitudeText.isShown()
 	                          ? View.GONE
 	                          : View.VISIBLE );
-	      locationTextView.setVisibility( locationTextView.isShown()
+	      longitudeText.setVisibility( longitudeText.isShown()
+                  ? View.GONE
+                  : View.VISIBLE );
+	      latitudeTextView.setVisibility( latitudeTextView.isShown()
+                  ? View.GONE
+                  : View.VISIBLE );
+	      
+	      longitudeTextView.setVisibility( longitudeTextView.isShown()
                   ? View.GONE
                   : View.VISIBLE );
 	      
@@ -602,7 +622,11 @@ public class Select extends Activity  implements LocationListener {
                   ? View.GONE
                   : View.VISIBLE );
 	      
-	      locationRow.setVisibility( locationRow.isShown()
+	      latitudeRow.setVisibility( latitudeRow.isShown()
+                  ? View.GONE
+                  : View.VISIBLE );
+	      
+	      longitudeRow.setVisibility( longitudeRow.isShown()
                   ? View.GONE
                   : View.VISIBLE );
 	      
@@ -779,25 +803,9 @@ public class Select extends Activity  implements LocationListener {
 		// TODO Auto-generated method stub
 		lat = (double) (location.getLatitude());
 	    lng = (double) (location.getLongitude());
-	    locationText.setText("working");
-	    Log.d("lat: " + lat, "long: " + lng);
-	    Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
-	    try {
-	    	  List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
-	    	 
-	    	  if(addresses != null) {
-	    	   Address returnedAddress = addresses.get(0);
-	    	   String address = "";
-	    	   for(int i=0; i<returnedAddress.getMaxAddressLineIndex(); i++) {
-	    		    address +=returnedAddress.getAddressLine(i);
-	    		   }
-	    	   locationText.setText(address.trim().substring(address.length()-5));
-	    	  }
-	    } catch (IOException e) {
-	    	e.printStackTrace();
-	    	locationText.setText("Canont get location information!");
-	    	
-	    }
+	    latitudeText.setText(""+lat);
+	    longitudeText.setText(""+lng);
+	    
 		
 	}
 

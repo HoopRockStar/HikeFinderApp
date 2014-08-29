@@ -1,4 +1,4 @@
-  <classpathentry kind="lib" path="libs/google-api-services-hikeendpoint-v1-rev20140828230159-1.18.0-rc.jar" sourcepath="libs-sources/google-api-services-hikeendpoint-v1-rev20140828230159-1.18.0-rc-sources.jar"/>
+  <classpathentry kind="lib" path="libs/google-api-services-hikeendpoint-v1-rev20140829020819-1.18.0-rc.jar" sourcepath="libs-sources/google-api-services-hikeendpoint-v1-rev20140829020819-1.18.0-rc-sources.jar"/>
   <classpathentry kind="lib" path="libs/google-api-client-1.18.0-rc.jar" sourcepath="libs-sources/google-api-client-1.18.0-rc-sources.jar"/>
   <classpathentry kind="lib" path="libs/google-api-client-android-1.18.0-rc.jar" sourcepath="libs-sources/google-api-client-android-1.18.0-rc-sources.jar"/>
   <classpathentry kind="lib" path="libs/google-api-client-appengine-1.18.0-rc.jar" sourcepath="libs-sources/google-api-client-appengine-1.18.0-rc-sources.jar"/>
