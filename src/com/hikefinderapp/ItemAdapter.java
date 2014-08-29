@@ -85,9 +85,9 @@ public class ItemAdapter extends ArrayAdapter<Hike> {
 				featuresText += "Of Historical Interest, ";
 			}
 			
-			if (h.getGeological()) {
+			/*if (h.getGeological()) {
 				featuresText += "Of Geographical Interest, ";
-			}
+			}*/
 			
 			if (h.getTallTrees()) {
 				featuresText += "Tall Trees, ";

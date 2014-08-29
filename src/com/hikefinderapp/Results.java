@@ -62,9 +62,10 @@ public class Results extends ListActivity
 	// declare class variables
 	//private ArrayList<Hike> hikeResults;
 	private Runnable viewParts;
-	//private ItemAdapter m_adapter;
+	///private ItemAdapter m_adapter;
 	ArrayList<String> queryString;
 	String distanceString;
+	String elevationString;
 	public QueryHike queryHike;
 	ItemAdapter m_adapter;
 	
@@ -73,10 +74,18 @@ public class Results extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.results);
 		queryString = null;
+		distanceString = null;
+		elevationString = null;
 		Intent intent = getIntent();
 		hikesResult = new HashSet();
 		queryString = intent.getStringArrayListExtra("query");
-		distanceString = intent.getStringExtra("distance");
+		if (intent.hasExtra("distance")) {
+			distanceString = intent.getStringExtra("distance");
+		}
+		
+		if (intent.hasExtra("elevation")) {
+			elevationString = intent.getStringExtra("elevation");
+		}
 		String query;
 		Log.d("queryString size ", ""+queryString.size() );
 		if (distanceString != null && queryString != null) {
@@ -87,8 +96,15 @@ public class Results extends ListActivity
 			}
 		}
 		
-		if (queryString == null) {
-			Toast.makeText(this, "Please go back and enter the features for your hike!", Toast.LENGTH_LONG);
+		if (queryString.size() == 0 && distanceString != null && elevationString != null) {
+			queryString.add(distanceString);
+			Log.d("Query is now ", queryString.get(0));
+		} else if (queryString.size() ==0 && distanceString !=null) {
+			queryString.add(distanceString);
+			Log.d("Query is now ", queryString.get(0));
+		} else if (queryString.size() == 0 && elevationString != null) {
+			queryString.add(elevationString);
+			Log.d("Query is now ", queryString.get(0));
 		}
 		
 		
@@ -225,9 +241,9 @@ public class Results extends ListActivity
 			featuresText += "Of Historical Interest, ";
 		}
 		
-		if (h.getGeological()) {
+		/*if (h.getGeological()) {
 			featuresText += "Of Geographical Interest, ";
-		}
+		}*/
 		
 		if (h.getTallTrees()) {
 			featuresText += "Tall Trees, ";

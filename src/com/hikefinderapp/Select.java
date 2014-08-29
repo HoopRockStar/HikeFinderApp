@@ -1,5 +1,6 @@
 package com.hikefinderapp;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.hikefinderapp.R;
@@ -7,7 +8,9 @@ import com.hikefinderapp.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -52,11 +55,14 @@ import android.os.Bundle;
 import android.widget.ListView;
 import java.util.Collections;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 
 import android.app.ListActivity;
 
-public class Select extends Activity {
+public class Select extends Activity  implements LocationListener {
+	LocationManager locationManager;
+	
 	/*
 	 * First Grouping
 	 */
@@ -69,6 +75,11 @@ public class Select extends Activity {
 	
 	//textboxes
 	EditText locationText;
+	String provider;
+	Location location;
+	Context context;
+	double lat;
+	double lng;
 	
 	//check boxes
 	CheckBox freeParkingCheckBox;
@@ -152,6 +163,7 @@ public class Select extends Activity {
 	//Additional fields
 	ArrayList<String> queryString;
 	Hike queryHike;
+	String zipQuery;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -174,8 +186,29 @@ public class Select extends Activity {
 		bathroomTextView = (TextView) findViewById(R.id.textViewBathroom);
 		dogsAllowedTextView = (TextView) findViewById(R.id.textViewDogsAllowed);
 		
-		//textbox
+		///textbox
 		locationText = (EditText) findViewById(R.id.editTextLocation);
+		
+		submitButton = (Button) findViewById(R.id.button1);
+		
+		// Get the location manager
+	    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+	    // Define the criteria for selecting a location provider
+	    Criteria criteria = new Criteria();
+	    zipQuery =  null;
+	    provider = locationManager.getBestProvider(criteria, false);
+	    Location location = locationManager.getLastKnownLocation(provider);
+
+	    // Initialize the location fields
+	    if (location != null) {
+	      System.out.println("Provider " + provider + " has been selected.");
+	      onLocationChanged(location);
+	    } else {
+	      locationText.setText("Location not available");
+	    }
+	  
+
+	    
 		
 		// checkboxes
 		freeParkingCheckBox = (CheckBox) findViewById(R.id.checkBoxFreeParking);
@@ -220,8 +253,7 @@ public class Select extends Activity {
 		
 		//Strings
 		distanceQueryString = null;
-		elevationQueryString = "";
-		caloriesQueryString = "";
+		elevationQueryString = null;
 		
 		//checkbox
 		steepHillsCheckBox = (CheckBox) findViewById(R.id.checkBoxSteepHills);
@@ -353,9 +385,9 @@ public class Select extends Activity {
             	 */
             	
             	//spinners
-            	/*Spinner distanceSpinner;
+            	Spinner distanceSpinner;
             	Spinner elevationSpinner;
-            	Spinner caloriesSpinner;*/
+            	Spinner caloriesSpinner;
             	
             	//checkboxes
             	Boolean steepHillsChecked = (steepHillsCheckBox.isChecked()) ? true : false;
@@ -416,29 +448,13 @@ public class Select extends Activity {
             	if (openSpacesChecked == true) {
             		queryString.add("wildflowers == " + openSpacesChecked);
             	}
-            	
-            	// create query hike
-            	/*Hike queryHike = new Hike(
-            			null, null,
-            			0, 0,
-            			oceanChecked,
-            			waterfallChecked,
-            			geologicalChecked,
-            			historicalChecked,
-            			dogChecked,
-            			null,null);
-            	
-            	List<Hike> hikeResults = db.queryHike(queryHike);
-            	
-            	System.out.println("Size of hike list returned by query: " + hikeResults.size());
-            	GlobalDataContainer.setQueryResults(hikeResults);*/
-            	
-            	
+             		
 		        Intent myIntent = new Intent(Select.this, Results.class);
 		      
 		        myIntent.putStringArrayListExtra("query", queryString);
 		        
 		        myIntent.putExtra("distance", distanceQueryString);
+		        myIntent.putExtra("elevation", elevationQueryString);
 		        String nullQuery = "" + (queryString==null);
 		        
 		        //Toast.makeText(getApplicationContext(), nullQuery, Toast.LENGTH_LONG).show();
@@ -456,8 +472,11 @@ public class Select extends Activity {
 		        myIntent.putExtra("geological", geologicalFeaturesChecked);
 		        myIntent.putExtra("tallTrees", tallTreesChecked);
 		        myIntent.putExtra("wildflowers", openSpacesChecked);
-		        
-		        Select.this.startActivity(myIntent);
+		        if (queryString.size() < 1 && distanceQueryString == null && elevationQueryString == null) {
+		        	Toast.makeText(getApplicationContext(), "Please enter some search criteria.", Toast.LENGTH_LONG).show();
+		        } else {
+		        	Select.this.startActivity(myIntent);
+		        }
             }
         });
 		
@@ -525,21 +544,16 @@ public class Select extends Activity {
             public void onItemSelected(AdapterView<?> parentView, View v, int position, long id) {
                 // your code here
                  
-                if (position == 1)
-                	caloriesQueryString = "(calories >= 0 && calories <= 250)";
-                else if (position == 2)
-                	caloriesQueryString = "(calories >= 250 && calories <= 500)";
-                else if (position == 3 )
-                	caloriesQueryString = "(calories >= 500 && calories <= 1000)";
-                else if (position == 4)
-                	caloriesQueryString = "(calories >= 1000 && calories <= 2000)";
-                else if (position == 5)
-                	caloriesQueryString = "(calories >= 2000 && calories <= 3000)";
-                else if (position == 6)
-                	caloriesQueryString = "(calories >= 3000 && calories <= 5000)";
-                else if (position == 7)
-                	caloriesQueryString = "(calories >= 5000)";
-                 
+                if (position == 1) //0-250 calories
+                	distanceQueryString = "(distance >= 1.0 && distance <= 3.0)";
+                else if (position == 2)//250-500 calories
+                	distanceQueryString = "(distance >= 3.0 && distance <= 6.0)";
+                else if (position == 3 )//500-750 calories
+                	distanceQueryString = "(distance >= 6.0 && distance <= 10.0)";
+                else if (position == 4)//750-1000 calories
+                	distanceQueryString = "(distance >= 10.0 && distance <= 15.0)";
+                else if (position == 5)//1000 or above
+                	distanceQueryString = "(distance >= 15.0)";         
             }
 		
             @Override
@@ -745,5 +759,67 @@ public class Select extends Activity {
 				  ? View.GONE
 				  : View.VISIBLE );
 	}
+	
+	/* Request updates at startup */
+	  @Override
+	  protected void onResume() {
+	    super.onResume();
+	    locationManager.requestLocationUpdates(provider, 400, 1, this);
+	  }
+
+	  /* Remove the locationlistener updates when Activity is paused */
+	  @Override
+	  protected void onPause() {
+	    super.onPause();
+	    locationManager.removeUpdates(this);
+	  }
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		lat = (double) (location.getLatitude());
+	    lng = (double) (location.getLongitude());
+	    locationText.setText("working");
+	    Log.d("lat: " + lat, "long: " + lng);
+	    Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+	    try {
+	    	  List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+	    	 
+	    	  if(addresses != null) {
+	    	   Address returnedAddress = addresses.get(0);
+	    	   String address = "";
+	    	   for(int i=0; i<returnedAddress.getMaxAddressLineIndex(); i++) {
+	    		    address +=returnedAddress.getAddressLine(i);
+	    		   }
+	    	   locationText.setText(address.trim().substring(address.length()-5));
+	    	  }
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    	locationText.setText("Canont get location information!");
+	    	
+	    }
+		
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+		Toast.makeText(this, "Disabled provider " + provider,
+		        Toast.LENGTH_SHORT).show();	
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		Toast.makeText(this, "Enabled new provider " + provider,
+		        Toast.LENGTH_SHORT).show();	
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 }

@@ -95,11 +95,9 @@
 	    <item>No Preference</item>
         <item>0&#8211;250 calories</item>
         <item>250&#8211;500 calories</item>
-        <item>500&#8211;1000 calories</item>
-        <item>1000&#8211;2000 calories</item>
-        <item>2000&#8211;3000 calories</item>
-        <item>3000&#8211;5000 calories</item>
-        <item>5000 or above calories</item>
+        <item>500&#8211;750 calories</item>
+        <item>750&#8211;1000 calories</item>
+        <item>1000 or above calories</item>
     </string-array>
     
 		<string-array name="state_array">
