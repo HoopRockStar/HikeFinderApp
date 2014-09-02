@@ -52,37 +52,20 @@
     
     	
     <TableRow
-        android:id="@+id/tableRowLatitude"
+        android:id="@+id/tableRowZipcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dip" >
 
         <TextView
-            android:id="@+id/textViewLatitude"
-            android:text="Latitude (Decimal)" />
+            android:id="@+id/textViewZipcode"
+            android:text="Location (5-Digit Zipcode)" />
         
         <EditText
-        android:id="@+id/editTextLatitude"
+        android:id="@+id/editTextZipcode"
         android:ems="10"
-        android:digits="1234567890." 
-  		></EditText>         
-
-	</TableRow>
-	
-    <TableRow
-        android:id="@+id/tableRowLongitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dip" >
-
-        <TextView
-            android:id="@+id/textViewLongitude"
-            android:text="Longitude (Decimal)" />
-        
-        <EditText
-        android:id="@+id/editTextLongitude"
-        android:ems="10" 
-        android:digits="1234567890.-" 
+        android:maxLength="5"
+        android:digits="1234567890" 
   		></EditText>         
 
 	</TableRow>

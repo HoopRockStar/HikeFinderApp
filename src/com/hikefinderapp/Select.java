@@ -68,20 +68,19 @@ public class Select extends Activity  implements LocationListener {
 	 */
 	
 	//textfields
-	TextView latitudeTextView;
-	TextView longitudeTextView;
+	TextView zipTextView;
 	TextView freeParkingTextView;
 	TextView bathroomTextView;
 	TextView dogsAllowedTextView;
 	
 	//textboxes
-	EditText latitudeText;
-	EditText longitudeText;
+	EditText zipText;
 	String provider;
 	Location location;
 	Context context;
 	double lat;
 	double lng;
+	String zip;
 	
 	//check boxes
 	CheckBox freeParkingCheckBox;
@@ -89,8 +88,7 @@ public class Select extends Activity  implements LocationListener {
 	CheckBox dogsAllowedCheckBox;
 	
 	//tablerows
-	TableRow latitudeRow;
-	TableRow longitudeRow;
+	TableRow zipRow;
 	TableRow freeParkingRow;
 	TableRow bathroomRow;
 	
@@ -167,6 +165,7 @@ public class Select extends Activity  implements LocationListener {
 	ArrayList<String> queryString;
 	Hike queryHike;
 	String zipQuery;
+	Geocoder geocoder;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +174,7 @@ public class Select extends Activity  implements LocationListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select);
 		Intent intent = getIntent();
+		geocoder = new Geocoder(this, Locale.ENGLISH);
 		//String value = intent.getStringExtra("key"); //if it's a string you stored.
 
 		//final DatabaseHandler db = new DatabaseHandler(this);
@@ -184,15 +184,13 @@ public class Select extends Activity  implements LocationListener {
 		 */
 		
 		//textviews
-		latitudeTextView = (TextView) findViewById(R.id.textViewLatitude);
-		longitudeTextView = (TextView) findViewById(R.id.textViewLongitude);
+		zipTextView = (TextView) findViewById(R.id.textViewZipcode);
 		freeParkingTextView = (TextView) findViewById(R.id.textViewFreeParking);
 		bathroomTextView = (TextView) findViewById(R.id.textViewBathroom);
 		dogsAllowedTextView = (TextView) findViewById(R.id.textViewDogsAllowed);
 		
 		///textbox
-		latitudeText = (EditText) findViewById(R.id.editTextLatitude);
-		longitudeText = (EditText) findViewById(R.id.editTextLongitude);
+		zipText = (EditText) findViewById(R.id.editTextZipcode);
 		
 		//button
 		submitButton = (Button) findViewById(R.id.button1);
@@ -203,18 +201,41 @@ public class Select extends Activity  implements LocationListener {
 	    Criteria criteria = new Criteria();
 	    provider = locationManager.getBestProvider(criteria, false);
 	    Location location = locationManager.getLastKnownLocation(provider);
-
-	    // Initialize the location fields
 	    if (location != null) {
-	      System.out.println("Provider " + provider + " has been selected.");
-	      onLocationChanged(location);
-	    } else {
-	      latitudeText.setText("Latitude information not available");
-	      longitudeText.setText("Longitude information not available");
-	    }
-	  
+		      System.out.println("Provider " + provider + " has been selected.");
+		      lat = (double) (location.getLatitude());
+			  lng = (double) (location.getLongitude());
+			  Log.d("Original lat and long", ""+lat + " " + lng);
+			  
+			  try {
+		    	  List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+		    	  String zipcode="";
+		    	  if(addresses != null) {
+		    		  Address returnedAddress = addresses.get(0);
+		    		  for(int i=0; i<returnedAddress.getMaxAddressLineIndex(); i++) {
+		    			  zipcode+=returnedAddress.getAddressLine(i).toString();
+		    		  }
+		    		  zip = zipcode.substring(zipcode.length()-5);
+		    		  zipText.setText(zip);
+		    	  } else {
+		    		  zipText.setText("5-digit zipcode");
+		    	  }
+		    	  
+		    	  
+		      } catch (IOException e) {
+		    	  // TODO Auto-generated catch block
+		    	  e.printStackTrace();
+		    	  //myAddress.setText("Canont get Address!");
+		      } 
 
+			  
+		      onLocationChanged(location);
+	   }
 	    
+	    
+	    // Initialize the location fields
+	    
+	  
 		
 		// checkboxes
 		freeParkingCheckBox = (CheckBox) findViewById(R.id.checkBoxFreeParking);
@@ -222,27 +243,23 @@ public class Select extends Activity  implements LocationListener {
 		dogsAllowedCheckBox = (CheckBox) findViewById(R.id.checkBoxDogsAllowed);
 		
 		// access three out of four tablerows
-		latitudeRow = (TableRow) findViewById(R.id.tableRowLatitude);
-		longitudeRow = (TableRow) findViewById(R.id.tableRowLongitude);
+		zipRow = (TableRow) findViewById(R.id.tableRowZipcode);
 		freeParkingRow = (TableRow) findViewById(R.id.tableRowfreeParking);
 		bathroomRow = (TableRow) findViewById(R.id.tableRowBathroom);
 		
 		//make invisible to start
-		latitudeTextView.setVisibility(View.GONE);
-		longitudeTextView.setVisibility(View.GONE);
+		zipTextView.setVisibility(View.GONE);
 		freeParkingTextView.setVisibility(View.GONE);
 		bathroomTextView.setVisibility(View.GONE);
 		dogsAllowedTextView.setVisibility(View.GONE);
 		
-		latitudeText.setVisibility(View.GONE);
-		longitudeText.setVisibility(View.GONE);
+		zipText.setVisibility(View.GONE);
 		
 		freeParkingCheckBox.setVisibility(View.GONE);
 		bathroomCheckBox.setVisibility(View.GONE);
 		dogsAllowedCheckBox.setVisibility(View.GONE);
 		
-		latitudeRow.setVisibility(View.GONE);
-		longitudeRow.setVisibility(View.GONE);
+		zipRow.setVisibility(View.GONE);
 		freeParkingRow.setVisibility(View.GONE);
 		bathroomRow.setVisibility(View.GONE);
 		
@@ -370,17 +387,26 @@ public class Select extends Activity  implements LocationListener {
             	 */
             	
             	//textboxes
-            	if (latitudeText.getText().toString().length() < 2) {
-            		//leave lat as it is
+            	if (zipText.getText().toString().length() < 5) {
+            		zipQuery = null;
+            	} else if (!zipText.getText().toString().equals(zip)){
+            		List<Address> addresses;
+					try {
+						addresses = geocoder.getFromLocationName(zipText.getText().toString(), 1);
+						if (addresses != null && !addresses.isEmpty()) {
+	            		    Address address = addresses.get(0);
+	            		    lat = address.getLatitude();
+	            		    lng = address.getLongitude();
+	            		    Log.d("Extracting new lat and long: ", "" + lat + " " + lng);
+	            		}
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
             	} else {
-            		lat = Double.parseDouble(latitudeText.getText().toString());
+            		//leave lat and lng as they are
             	}
             	
-            	if (longitudeText.getText().toString().length() < 2) {
-            		//leave lng as it is
-            	} else {
-            		lng = Double.parseDouble(longitudeText.getText().toString());
-            	}
             	
             	//check boxes
             	Boolean freeParkingChecked = (freeParkingCheckBox.isChecked()) ? true : false;
@@ -399,6 +425,7 @@ public class Select extends Activity  implements LocationListener {
             	if (dogsAllowedChecked == true) {
             		queryString.add("dogsAllowed == " + dogsAllowedChecked); 
             	}
+            	
             	
             	/*
             	 * Second Grouping
@@ -593,17 +620,10 @@ public class Select extends Activity  implements LocationListener {
 	* onClick handler for first grouping
 	*/
 	public void toggle_contents(View v){
-	      latitudeText.setVisibility( latitudeText.isShown()
+	      zipText.setVisibility( zipText.isShown()
 	                          ? View.GONE
 	                          : View.VISIBLE );
-	      longitudeText.setVisibility( longitudeText.isShown()
-                  ? View.GONE
-                  : View.VISIBLE );
-	      latitudeTextView.setVisibility( latitudeTextView.isShown()
-                  ? View.GONE
-                  : View.VISIBLE );
-	      
-	      longitudeTextView.setVisibility( longitudeTextView.isShown()
+	      zipTextView.setVisibility( zipTextView.isShown()
                   ? View.GONE
                   : View.VISIBLE );
 	      
@@ -631,11 +651,7 @@ public class Select extends Activity  implements LocationListener {
                   ? View.GONE
                   : View.VISIBLE );
 	      
-	      latitudeRow.setVisibility( latitudeRow.isShown()
-                  ? View.GONE
-                  : View.VISIBLE );
-	      
-	      longitudeRow.setVisibility( longitudeRow.isShown()
+	      zipRow.setVisibility( zipRow.isShown()
                   ? View.GONE
                   : View.VISIBLE );
 	      
@@ -810,10 +826,7 @@ public class Select extends Activity  implements LocationListener {
 	@Override
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
-		lat = (double) (location.getLatitude());
-	    lng = (double) (location.getLongitude());
-	    latitudeText.setText(""+lat);
-	    longitudeText.setText(""+lng);
+	    locationManager.removeUpdates(this);
 	    
 		
 	}

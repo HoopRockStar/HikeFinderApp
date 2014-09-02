@@ -105,11 +105,11 @@
 
 # onClick res/layout/add_hike.xml #generated:293
 # onClick res/layout/edit_hike.xml #generated:236
-# onClick res/layout/select.xml #generated:141
+# onClick res/layout/select.xml #generated:124
 -keepclassmembers class * { *** toggle_contents_difficulty(...); }
 
 # onClick res/layout/add_hike.xml #generated:362
 # onClick res/layout/edit_hike.xml #generated:305
-# onClick res/layout/select.xml #generated:220
+# onClick res/layout/select.xml #generated:203
 -keepclassmembers class * { *** toggle_contents_features(...); }
 
