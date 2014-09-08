@@ -1,81 +1,133 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/colorFawn"
-    android:layout_weight="1">
-    <LinearLayout
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
-      android:orientation="vertical">
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@color/colorFawn"
+	android:layout_weight="1">
+	
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorFawn" >
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/colorFawn" >
+	
+	
+	<TextView
+		android:id="@+id/textViewName"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:text="@string/route"
+		android:padding="5dip"
+		android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	<TableLayout
+    	android:id="@+id/tableLayout1"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:stretchColumns = "1"
+    	android:layout_below="@+id/textViewName" >
+    	
+	<TableRow>
 
- 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:layout_below="@+id/textView2"
-        android:text="TextView"
-        android:textSize="18sp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+	<TextView
+		android:id="@+id/textViewAddress"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:text="Address"
+		android:gravity="center_horizontal"
+		android:layout_span="2"
+		android:padding="10dip"/>
+	</TableRow>
+	    
     
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/route"
-        android:textSize="30sp" />
-    
+	<TableRow>
+	<TextView
+		android:id="@+id/textViewStatisticsHeader"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:text="Hike Statistics"
+		android:gravity="center_horizontal"
+		android:background="@color/colorAsparagus"
+		android:layout_span="2"
+		android:padding="5dip"/>
+	</TableRow>
+	
+	<TableRow>
+	    <TextView
+		android:id="@+id/textViewStatistics"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_span="2" 
+		android:text="Blah blah statistics"
+		android:maxLines="10"
+		android:padding="5dip"/>
+	</TableRow>
+	
+	<TableRow>
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/textView3"
-        android:maxLines="10"
-        android:text="@string/sample_route"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="fill_parent"
-        android:layout_height="35dp"
-        android:layout_marginBottom="17dp"
-        android:layout_marginTop="17dp"
-        android:background="@color/colorAsparagus"
-        android:layout_below="@+id/textView1"
-        android:text="@string/view_checklist" />
+	<TextView
+		android:id="@+id/textViewTrailsHeader"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:text="Trails"
+		android:gravity="center_horizontal"
+		android:background="@color/colorAsparagus"
+		android:layout_span="2"
+		android:padding="5dip"/>
+	</TableRow>
+	
+	</TableLayout>
+	
+	<ListView
+	    android:id="@+id/list_trails"
+	    android:layout_width="wrap_content"
+	    android:layout_height="150dp"
+	    android:layout_alignParentRight="true"
+	    android:layout_below="@+id/tableLayout1">
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="fill_parent"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/button1"
-        android:background="@color/colorAsparagus"
-        android:text="@string/completed" />
+    </ListView>
 
-    <Button
-        android:id="@+id/button2"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorAsparagus"
-        android:text="Edit" />
+	
+	<Button
+		android:id="@+id/button1"
+		android:layout_width="fill_parent"
+		android:layout_height="40dp"
+		android:layout_marginBottom="17dp"
+		android:layout_marginTop="17dp"
+		android:background="@color/colorAsparagus"
+		android:layout_below="@+id/list_trails"
+		android:text="@string/view_checklist" />
+	
+	<Button
+		android:id="@+id/button3"
+		android:layout_width="fill_parent"
+		android:layout_height="40dp"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:layout_below="@+id/button1"
+		android:background="@color/colorAsparagus"
+		android:text="@string/completed" />
+
+	<Button
+		android:id="@+id/button2"
+		style="?android:attr/buttonStyleSmall"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:background="@color/colorAsparagus"
+		android:text="Edit" />
 
 </RelativeLayout>
-
 </LinearLayout>
-
 </ScrollView>
+
+
+

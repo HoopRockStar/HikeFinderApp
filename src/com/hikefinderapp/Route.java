@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +20,8 @@ import com.hikefinderapp.entity.hikeendpoint.model.Hike;
 public class Route extends Activity
 {
 	TextView address;
-	TextView trails;
-	TextView latlong;
+	ListView trails;
+	TextView header;
 	TextView stats;
 	/// buttons
 	Button checklistButton;
@@ -60,18 +61,23 @@ public class Route extends Activity
 	    
 	    //Toast.makeText(getApplicationContext(), "route distance " + distance, Toast.LENGTH_LONG).show();
 		
-		trails = (TextView) findViewById(R.id.textView1);
-		latlong = (TextView) findViewById(R.id.textView3);
-		stats = (TextView) findViewById(R.id.textView5);
+		trails = (ListView) findViewById(R.id.list_trails);
+		stats = (TextView) findViewById(R.id.textViewStatistics);
+		header = (TextView) findViewById(R.id.textViewName);
+		address = (TextView) findViewById(R.id.textViewAddress);
 		
 		String newTrail;
-		newTrail = trail.replace("\n", "\n\n");
-		newTrail = trail.replace(", ", "\n\n");
-		newTrail = trail.replace(">", "\n\n");
+		newTrail = trail.replace(", ", "\n");
+		newTrail = trail.replace(">", "\n");
+		String[] trails_list = newTrail.split("\n");
 		
-		trails.setText("Trails :\n" + newTrail);
-		latlong.setText("Address: " + addres + "\n\nLatitude: " + latitude + "\nLongitude: " + longitude +"\n\nDistance: " + distance + " miles\nElevation Gain: " + elevation + " feet\nCalories: " + ((int) (distance * 80)));
-
+		CustomList adapter = new CustomList(Route.this, trails_list);
+		trails.setAdapter(adapter);
+		
+		//trails.setText("Trails :\n" + newTrail);
+		stats.setText("Latitude: " + latitude + "\nLongitude: " + longitude +"\n\nDistance: " + distance + " miles\nElevation Gain: " + elevation + " feet\nApproximate Calories: " + ((int) (distance * 80)));
+		header.setText(name);
+		address.setText(addres);
 
 		checklistButton = (Button) findViewById(R.id.button1);
 		editButton = (Button) findViewById(R.id.button2);
