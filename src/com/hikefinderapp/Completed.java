@@ -184,14 +184,25 @@ public class Completed  extends Activity{
 	}
         
 	public void parseDate(String profileDate) {
-		if(profileDate.length()==9) {
-			month = Integer.parseInt(profile.getDateCompleted().substring(0,1));
-			day = Integer.parseInt(profile.getDateCompleted().substring(2,4));
-			year = Integer.parseInt(profile.getDateCompleted().substring(5,9));
+		profileDate = profileDate.trim();
+		if(profileDate.length()==8) {
+			Log.d("date length is eight", profileDate);
+			Log.d("Profile date is ", profileDate);
+			month = Integer.parseInt(profileDate.substring(0,1));
+			day = Integer.parseInt(profileDate.substring(2,3));
+			year = Integer.parseInt(profileDate.substring(4,8));
+		} else if (profileDate.length()==9){
+			Log.d("date length ", "is nine");
+			Log.d("Profile date is ", profileDate);
+			month = Integer.parseInt(profileDate.substring(0,2));
+			day = Integer.parseInt(profileDate.substring(3,4));
+			year = Integer.parseInt(profileDate.substring(5,9));
 		} else {
-			month = Integer.parseInt(profile.getDateCompleted().substring(0,2));
-			day = Integer.parseInt(profile.getDateCompleted().substring(3,5));
-			year = Integer.parseInt(profile.getDateCompleted().substring(6,10));
+			Log.d("date length ", "is ten");
+			Log.d("Profile date is ", profileDate);
+			month = Integer.parseInt(profileDate.substring(0,2));
+			day = Integer.parseInt(profileDate.substring(3,5));
+			year = Integer.parseInt(profileDate.substring(6,10));
 		}
 		Log.d("PArsing date: ", "month: " + month + "day: " + day + "year: " + year);
 		

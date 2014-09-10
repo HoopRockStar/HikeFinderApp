@@ -74,7 +74,7 @@ public class Route extends Activity
 		CustomList adapter = new CustomList(Route.this, trails_list);
 		trails.setAdapter(adapter);
 		
-		//trails.setText("Trails :\n" + newTrail);
+		///trails.setText("Trails :\n" + newTrail);
 		stats.setText("Latitude: " + latitude + "\nLongitude: " + longitude +"\n\nDistance: " + distance + " miles\nElevation Gain: " + elevation + " feet\nApproximate Calories: " + ((int) (distance * 80)));
 		header.setText(name);
 		address.setText(addres);

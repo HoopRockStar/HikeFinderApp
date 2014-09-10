@@ -679,10 +679,12 @@ public class Add_Hike extends Activity {
             	geologicalFeaturesChecked = (geologicalFeaturesCheckBox.isChecked()) ? true : false;
             	tallTreesChecked = (tallTreesCheckBox.isChecked()) ? true : false;
             	openSpacesChecked = (openSpacesCheckBox.isChecked()) ? true : false;
-		        
-            	longitude = Double.parseDouble(longitudeString);
-            	
-            	if (name.length()==0) {
+		        if (longitudeString != null) {
+		        	longitude = Double.parseDouble(longitudeString);
+		        }
+            	if (name == null) {
+            		Toast.makeText(getApplicationContext(), "Please enter information for the hike", Toast.LENGTH_LONG);
+            	} else if (name.length()==0) {
             		if (!nameText.isShown()){
             			Toast.makeText(
                                 getApplicationContext(),"Please enter a valid name for the hike. See Hike Basics.", Toast.LENGTH_LONG).show();
