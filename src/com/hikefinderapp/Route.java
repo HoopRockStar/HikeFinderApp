@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -67,9 +68,11 @@ public class Route extends Activity
 		address = (TextView) findViewById(R.id.textViewAddress);
 		
 		String newTrail;
-		newTrail = trail.replace(", ", "\n");
-		newTrail = trail.replace(">", "\n");
-		String[] trails_list = newTrail.split("\n");
+		//newTrail = trail.replace(", ", "\n");
+		//Log.d("After splitting around commas ", newTrail);
+		newTrail = trail.replace("\n", ", ");
+		newTrail = trail.replace(">", ", ");
+		String[] trails_list = newTrail.split(", ");
 		
 		CustomList adapter = new CustomList(Route.this, trails_list);
 		trails.setAdapter(adapter);

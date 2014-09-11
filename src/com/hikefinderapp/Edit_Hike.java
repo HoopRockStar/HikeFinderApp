@@ -677,8 +677,7 @@ public class Edit_Hike extends Activity {
             		elevationText.setError(Html.fromHtml("<font color='red'>Please enter a valid elevation in feet.</font>"));
             	} else {
             		myHike.setElevation(elevationValue);
-            		Toast.makeText(
-                            getApplicationContext(), name + " " + street + " " + latitude + " " + longitude, Toast.LENGTH_LONG).show();
+            		//Toast.makeText(getApplicationContext(), name + " " + street + " " + latitude + " " + longitude, Toast.LENGTH_LONG).show();
             		myHike.setName(name);
             		myHike.setAddress(street);
             		myHike.setLatitude(latitude);

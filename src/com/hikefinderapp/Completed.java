@@ -145,10 +145,10 @@ public class Completed  extends Activity{
             day = dayOf;
             year = yearOf;
             
-            Toast.makeText(getApplicationContext(),
+            /*Toast.makeText(getApplicationContext(),
               "Year: " + year + "\n" +
               "Month of Year: " + month + "\n" +
-              "Day of Month: " + day, Toast.LENGTH_LONG).show();
+              "Day of Month: " + day, Toast.LENGTH_LONG).show();*/
             
             
            }});
@@ -191,6 +191,12 @@ public class Completed  extends Activity{
 			month = Integer.parseInt(profileDate.substring(0,1));
 			day = Integer.parseInt(profileDate.substring(2,3));
 			year = Integer.parseInt(profileDate.substring(4,8));
+		} else if (profileDate.length()==9 && profileDate.substring(1,2).equals("-")){
+			Log.d("date length ", "is nine");
+			Log.d("Profile date is ", profileDate);
+			month = Integer.parseInt(profileDate.substring(0,1));
+			day = Integer.parseInt(profileDate.substring(2,4));
+			year = Integer.parseInt(profileDate.substring(5,9));
 		} else if (profileDate.length()==9){
 			Log.d("date length ", "is nine");
 			Log.d("Profile date is ", profileDate);
@@ -204,7 +210,7 @@ public class Completed  extends Activity{
 			day = Integer.parseInt(profileDate.substring(3,5));
 			year = Integer.parseInt(profileDate.substring(6,10));
 		}
-		Log.d("PArsing date: ", "month: " + month + "day: " + day + "year: " + year);
+		Log.d("Parsing date: ", "month: " + month + "day: " + day + "year: " + year);
 		
 	}
 }

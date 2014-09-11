@@ -63,7 +63,7 @@ public class ProfileAdapter extends ArrayAdapter<UserProfile> {
 			String day="0";
 			String year="0";
 			Log.d("p-date: ", p.getDateCompleted());
-			if(p.getDateCompleted().length()==9) {
+			/*if(p.getDateCompleted().length()==9) {
 				month = Integer.parseInt(p.getDateCompleted().substring(0,1));
 				day = p.getDateCompleted().substring(2,4);
 				year = p.getDateCompleted().substring(5,9);
@@ -71,6 +71,34 @@ public class ProfileAdapter extends ArrayAdapter<UserProfile> {
 				month = Integer.parseInt(p.getDateCompleted().substring(0,2));
 				day = p.getDateCompleted().substring(3,5);
 				year = p.getDateCompleted().substring(6,10);
+			}*/
+			
+			String profileDate = p.getDateCompleted().trim();
+			
+			if(profileDate.length()==8) {
+				Log.d("date length is eight", profileDate);
+				Log.d("Profile date is ", profileDate);
+				month = Integer.parseInt(profileDate.substring(0,1));
+				day = profileDate.substring(2,3);
+				year = profileDate.substring(4,8);
+			} else if (profileDate.length()==9 && profileDate.substring(1,2).equals("-")){
+				Log.d("date length ", "is nine");
+				Log.d("Profile date is ", profileDate);
+				month = Integer.parseInt(profileDate.substring(0,1));
+				day = profileDate.substring(2,4);
+				year = profileDate.substring(5,9);
+			} else if (profileDate.length()==9){
+				Log.d("date length ", "is nine");
+				Log.d("Profile date is ", profileDate);
+				month = Integer.parseInt(profileDate.substring(0,2));
+				day = profileDate.substring(3,4);
+				year = profileDate.substring(5,9);
+			} else {
+				Log.d("date length ", "is ten");
+				Log.d("Profile date is ", profileDate);
+				month = Integer.parseInt(profileDate.substring(0,2));
+				day = profileDate.substring(3,5);
+				year = profileDate.substring(6,10);
 			}
 			
 			String date = "" + (month +1) +"-" + day + "-" + year;

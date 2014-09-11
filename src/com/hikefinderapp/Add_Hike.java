@@ -453,8 +453,7 @@ public class Add_Hike extends Activity {
 	            // your code here
 	            
 	            stateValue = stateSpinner.getSelectedItem().toString();
-	            Toast.makeText(
-	                    getApplicationContext(),"State "+ stateValue, Toast.LENGTH_LONG).show();
+	            //Toast.makeText(getApplicationContext(),"State "+ stateValue, Toast.LENGTH_LONG).show();
 	            
 	        }
 	        
